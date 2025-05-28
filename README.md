@@ -104,6 +104,7 @@ This project will help teams **review code more effectively**, reduce errors, an
 Here’s a visual overview of how this project collects, analyzes, and presents code review data:
 
 ![Image](https://github.com/user-attachments/assets/4af313a1-f530-462f-aa2d-c8e1c97a7cea)
+
 Reference - [KeyAnalytics GitHub](https://github.com/apoorvasj/keyanalytics)
 
 ---  

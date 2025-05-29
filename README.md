@@ -108,4 +108,24 @@ Here’s a visual overview of how this project collects, analyzes, and presents 
 Reference - [KeyAnalytics GitHub](https://github.com/apoorvasj/keyanalytics)
 
 ---  
-  
+
+##📊CYCLOMATIC COMPLEXITY
+
+Cyclomatic Complexity is a code metric that helps identify:
+
+- Code that’s hard to understand or maintain.
+- Paths that need to be tested (helps improve test coverage).
+- Complexity in logic that could lead to bugs or tech debt.
+
+We will use this metric to assess the quality of code in different repositories.
+![Image](https://github.com/user-attachments/assets/7ec614eb-7b40-4dee-b909-fa4a828366f5)
+
+## Tool: Lizard
+
+Lizard is a tool that automates the calculation of cyclomatic complexity.
+
+It shows:
+- Number of lines in a function
+- Cyclomatic complexity value
+- Number of parameters
+- Location of the function in the file

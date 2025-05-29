@@ -109,7 +109,7 @@ Reference - [KeyAnalytics GitHub](https://github.com/apoorvasj/keyanalytics)
 
 ---  
 ### Day 1
-##CYCLOMATIC COMPLEXITY
+## Cyclomatic Complexity
 
 Cyclomatic Complexity is a code metric that helps identify:
 
@@ -147,4 +147,4 @@ Cyclomatic Complexity Number (CCN) indicates how complex a function or method is
 - 1-10: Simple procedure, little risk  
 - 11-20: More complex, moderate risk  
 - 21-50: Complex, high risk  
-- >50: Untestable, very high risk 
+- Greater than 50: Untestable, very high risk 

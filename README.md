@@ -3,7 +3,7 @@
 This project looks at how developers review code on GitHub. It uses **data** and **AI** to help make code reviews better, faster, and easier to learn from.
 
 ---
-
+### Day 0
 ##  What is Code Analytics?
 
 **Code analytics** means collecting and studying information from coding activities — like commits, pull requests, and reviews on GitHub. It helps us understand:
@@ -108,8 +108,8 @@ Here’s a visual overview of how this project collects, analyzes, and presents 
 Reference - [KeyAnalytics GitHub](https://github.com/apoorvasj/keyanalytics)
 
 ---  
-
-📊 ##CYCLOMATIC COMPLEXITY
+### Day 1
+##CYCLOMATIC COMPLEXITY
 
 Cyclomatic Complexity is a code metric that helps identify:
 
@@ -129,3 +129,22 @@ It shows:
 - Cyclomatic complexity value
 - Number of parameters
 - Location of the function in the file
+
+--- 
+
+## Cyclomatic Complexity Analysis using Lizard
+
+- Installed and used a static analysis tool: Lizard
+- Cloned the open-source **Flask** GitHub repository.
+- Analyzed the codebase using Lizard to calculate complexity.
+- Saved:
+  - `all_lizard_output.txt`: Full complexity report of the Flask repo.
+  - `high_complexity_output.txt`: Filtered report with only functions having **CCN > 10**.
+
+## Understanding Cyclomatic Complexity Ranges
+
+Cyclomatic Complexity Number (CCN) indicates how complex a function or method is. Here’s a simple guide to interpret CCN values:
+- 1-10: Simple procedure, little risk  
+- 11-20: More complex, moderate risk  
+- 21-50: Complex, high risk  
+- >50: Untestable, very high risk 

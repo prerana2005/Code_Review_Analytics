@@ -109,7 +109,7 @@ Reference - [KeyAnalytics GitHub](https://github.com/apoorvasj/keyanalytics)
 
 ---  
 
-##📊CYCLOMATIC COMPLEXITY
+📊 ##CYCLOMATIC COMPLEXITY
 
 Cyclomatic Complexity is a code metric that helps identify:
 

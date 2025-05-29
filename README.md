@@ -139,7 +139,7 @@ It shows:
 - Analyzed the codebase using Lizard to calculate complexity.
 - Saved:
   - `all_lizard_output.txt`: Full complexity report of the Flask repo.
-  - `high_complexity_output.txt`: Filtered report with only functions having **CCN > 10**.
+  - `high_complexity_functions.txt`: Filtered report with only functions having **CCN > 10**.
 
 ## Understanding Cyclomatic Complexity Ranges
 

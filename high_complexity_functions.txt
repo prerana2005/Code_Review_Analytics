@@ -1,0 +1,15 @@
+================================================
+  NLOC    CCN   token  PARAM  length  location  
+      43     13    257      6      57 add_url_rule@605-661@.\flask\src\flask\sansio\app.py
+      89     23    457      3     105 register@273-377@.\flask\src\flask\sansio\blueprints.py
+     103     13    263      6     122 run@546-667@.\flask\src\flask\app.py
+     103     12    278      7     125 url_for@1003-1127@.\flask\src\flask\app.py
+     120     16    317      2     141 make_response@1129-1269@.\flask\src\flask\app.py
+      39     12    171      1      51 find_best_app@41-91@.\flask\src\flask\cli.py
+      61     14    263      2      78 find_app_by_string@120-197@.\flask\src\flask\cli.py
+      58     13    191      2      66 load_dotenv@698-763@.\flask\src\flask\cli.py
+      36     18    301      2      47 routes_command@1061-1107@.\flask\src\flask\cli.py
+      48     12    248      4      55 explain_template_loading_attempts@124-178@.\flask\src\flask\debughelpers.py
+      89     23    457      3     105 register@273-377@.\flask\src\flask\sansio\blueprints.py
+     120     16    317      2     141 make_response@1129-1269@.\flask\src\flask\app.py
+      36     18    301      2      47 routes_command@1061-1107@.\flask\src\flask\cli.py

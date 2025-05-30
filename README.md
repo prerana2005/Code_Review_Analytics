@@ -148,3 +148,33 @@ Cyclomatic Complexity Number (CCN) indicates how complex a function or method is
 - 11-20: More complex, moderate risk  
 - 21-50: Complex, high risk  
 - Greater than 50: Untestable, very high risk 
+
+--- 
+### Day 2
+## CSV Files Generated
+
+### 1. `output.csv`
+
+This file contains the full analysis of code functions with the following columns:
+
+- `nloc` : Number of lines of code in the function  
+- `CCN` : Cyclomatic Complexity Number  
+- `token_count` : Number of tokens in the function  
+- `parameter_count` : Number of parameters of the function  
+- `length` : Length of the function in lines  
+- `location` : Location of the function in the file  
+- `filename` : Name of the file containing the function  
+- `filepath` : Path to the file  
+- `function_name` : Name of the function  
+- `signature` : Full function signature  
+- `start_line` : Line number where the function starts  
+- `end_line` : Line number where the function ends (calculated as `start_line + length - 1`)
+
+---
+
+### 2. `output_ccn_gt_10.csv`
+
+This file is a filtered subset of the above file and contains only functions with cyclomatic complexity (`CCN`) greater than 10. It has the same columns as `output_with_end_line.csv`.
+
+---
+

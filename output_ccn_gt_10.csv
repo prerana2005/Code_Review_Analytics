@@ -1,0 +1,11 @@
+nloc,CCN,token_count,parameter_count,length,location,filename,filepath,function_name,signature,start_line,end_line
+43,13,257,6,57,add_url_rule@605-661@.\src\flask\sansio\app.py,.\src\flask\sansio\app.py,add_url_rule,"add_url_rule( self , rule : str , endpoint : str | None = None , view_func : ft . RouteCallable | None = None , provide_automatic_options : bool | None = None , ** options : t . Any , )",605,661,717
+89,23,457,3,105,register@273-377@.\src\flask\sansio\blueprints.py,.\src\flask\sansio\blueprints.py,register,"register( self , app : App , options : dict [ str , t . Any ] )",273,377,481
+103,13,263,6,122,run@546-667@.\src\flask\app.py,.\src\flask\app.py,run,"run( self , host : str | None = None , port : int | None = None , debug : bool | None = None , load_dotenv : bool = True , ** options : t . Any , )",546,667,788
+103,12,278,7,125,url_for@1003-1127@.\src\flask\app.py,.\src\flask\app.py,url_for,"url_for( self , / , endpoint : str , * , _anchor : str | None = None , _method : str | None = None , _scheme : str | None = None , _external : bool | None = None , ** values : t . Any , )",1003,1127,1251
+120,16,317,2,141,make_response@1129-1269@.\src\flask\app.py,.\src\flask\app.py,make_response,"make_response( self , rv : ft . ResponseReturnValue )",1129,1269,1409
+39,12,171,1,51,find_best_app@41-91@.\src\flask\cli.py,.\src\flask\cli.py,find_best_app,find_best_app( module : ModuleType ),41,91,141
+61,14,263,2,78,find_app_by_string@120-197@.\src\flask\cli.py,.\src\flask\cli.py,find_app_by_string,"find_app_by_string( module : ModuleType , app_name : str )",120,197,274
+58,13,191,2,66,load_dotenv@698-763@.\src\flask\cli.py,.\src\flask\cli.py,load_dotenv,"load_dotenv( path : str | os . PathLike [ str ] | None = None , load_defaults : bool = True )",698,763,828
+36,18,301,2,47,routes_command@1061-1107@.\src\flask\cli.py,.\src\flask\cli.py,routes_command,"routes_command( sort : str , all_methods : bool )",1061,1107,1153
+48,12,248,4,55,explain_template_loading_attempts@124-178@.\src\flask\debughelpers.py,.\src\flask\debughelpers.py,explain_template_loading_attempts,"explain_template_loading_attempts( app : App , template : str , attempts : list [ tuple [ BaseLoader , Scaffold , tuple [ str , str | None , t . Callable [ [ ] , bool ] | None ] | None , ] ] , )",124,178,232

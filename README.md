@@ -177,4 +177,4 @@ This file contains the full analysis of code functions with the following column
 This file is a filtered subset of the above file and contains only functions with cyclomatic complexity (`CCN`) greater than 10. It has the same columns as `output_with_end_line.csv`.
 
 ---
-
+The end_line calculation is performed by the Jupyter notebook calculate_end_line.ipynb

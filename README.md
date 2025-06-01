@@ -3,7 +3,7 @@
 This project looks at how developers review code on GitHub. It uses **data** and **AI** to help make code reviews better, faster, and easier to learn from.
 
 ---
-### Day 0
+### Day 1
 ##  What is Code Analytics?
 
 **Code analytics** means collecting and studying information from coding activities — like commits, pull requests, and reviews on GitHub. It helps us understand:
@@ -108,7 +108,7 @@ Here’s a visual overview of how this project collects, analyzes, and presents 
 Reference - [KeyAnalytics GitHub](https://github.com/apoorvasj/keyanalytics)
 
 ---  
-### Day 1
+### Day 2
 ## Cyclomatic Complexity
 
 Cyclomatic Complexity is a code metric that helps identify:
@@ -150,7 +150,7 @@ Cyclomatic Complexity Number (CCN) indicates how complex a function or method is
 - Greater than 50: Untestable, very high risk 
 
 --- 
-### Day 2
+### Day 3
 ## CSV Files Generated
 
 ### 1. `output.csv`
@@ -176,5 +176,13 @@ This file contains the full analysis of code functions with the following column
 
 This file is a filtered subset of the above file and contains only functions with cyclomatic complexity (`CCN`) greater than 10. It has the same columns as `output_with_end_line.csv`.
 
----
 The end_line calculation is performed by the Jupyter notebook calculate_end_line.ipynb
+---
+
+### Day 4 
+
+- Creating and switching Git branches  
+- Editing files and tracking changes  
+- Staging updates and committing them to Git  
+- Creating pull requests on GitHub  
+- Merging pull requests

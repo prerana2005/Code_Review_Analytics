@@ -186,3 +186,26 @@ The end_line calculation is performed by the Jupyter notebook calculate_end_line
 - Staging updates and committing them to Git  
 - Creating pull requests on GitHub  
 - Merging pull requests
+---
+
+### Day 5
+
+## Pull Request File Analysis
+- Created a dummy Python file (`dummy_test.py`) in a new branch and raised a pull request to `main`.
+- Generated a GitHub Personal Access Token with read-only permissions for repo contents and pull requests.
+- Wrote a Python script `get_pr_files.py` to fetch and print the list of files changed in the pull request using the GitHub API.
+- Updated this script to securely read the GitHub token from an environment variable instead of hardcoding it.
+
+### To run `get_pr_files.py`
+
+Set your GitHub token as an environment variable
+
+For Git Bash (Windows) or Linux/macOS terminal:
+export GITHUB_TOKEN=your_token_here
+
+What the script does:
+
+• Connects to GitHub API using the token.
+• Fetches the list of files changed in the specified pull request.
+• Prints the changed filenames.
+

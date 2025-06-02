@@ -198,14 +198,17 @@ The end_line calculation is performed by the Jupyter notebook calculate_end_line
 
 ### To run `get_pr_files.py`
 
-Set your GitHub token as an environment variable
+### Set your GitHub token as an environment variable
 
 For Git Bash (Windows) or Linux/macOS terminal:
+
+```bash
 export GITHUB_TOKEN=your_token_here
+```
 
-What the script does:
+### What the script does:
 
-• Connects to GitHub API using the token.
-• Fetches the list of files changed in the specified pull request.
-• Prints the changed filenames.
+- Connects to GitHub API using the token.  
+- Fetches the list of files changed in the specified pull request.  
+- Prints the changed filenames.
 

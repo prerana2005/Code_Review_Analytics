@@ -1,0 +1,9 @@
+nloc,CCN,token_count,parameter_count,length,location,filename,filepath,function_name,signature,start_line,end_line
+21,9,96,1,21,risk1@1-21@risky_test_files/risk1.py,risky_test_files/risk1.py,risk1,risk1( x ),1,21,41
+14,7,70,1,14,risk2@1-14@risky_test_files/risk2.py,risky_test_files/risk2.py,risk2,risk2( data ),1,14,27
+12,9,70,1,12,risk3@1-12@risky_test_files/risk3.py,risky_test_files/risk3.py,risk3,risk3( n ),1,12,23
+20,8,82,1,20,risk4@1-20@risky_test_files/risk4.py,risky_test_files/risk4.py,risk4,risk4( x ),1,20,39
+17,7,73,1,17,risk5@1-17@risky_test_files/risk5.py,risky_test_files/risk5.py,risk5,risk5( lst ),1,17,33
+23,11,101,1,23,risk6@1-23@risky_test_files/risk6.py,risky_test_files/risk6.py,risk6,risk6( x ),1,23,45
+2,1,8,0,2,safe1@1-2@risky_test_files/safe1.py,risky_test_files/safe1.py,safe1,safe1( ),1,2,3
+2,1,9,1,2,safe2@1-2@risky_test_files/safe2.py,risky_test_files/safe2.py,safe2,safe2( x ),1,2,3

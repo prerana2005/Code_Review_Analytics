@@ -1,0 +1,2 @@
+filename,status,additions,deletions,changes,nloc,complexity,token_count,parameter_count,length,location,filepath,function_name,signature,start_line,end_line
+risky_test_files/risk6.py,added,23,0,23,23,11,101,1,23,risk6@1-23@risky_test_files/risk6.py,risk6,risk6( x ),1,23,45

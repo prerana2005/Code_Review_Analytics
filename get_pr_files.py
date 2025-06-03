@@ -1,31 +1,38 @@
-from dotenv import load_dotenv
-load_dotenv()  # loads the .env file variables into environment
-
-import os
-from dotenv import load_dotenv
 import requests
+import csv
+import os
 
-load_dotenv()  # Load env vars from .env
-
-GITHUB_REPO = "prerana2005/Code_Review_Analytics"
-PR_NUMBER = 1
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-
-url = f"https://api.github.com/repos/{GITHUB_REPO}/pulls/{PR_NUMBER}/files"
+# ====== CONFIGURATION ======
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")  #export this in terminal
+REPO_OWNER = "prerana2005"
+REPO_NAME = "Code_Review_Analytics"
+PR_NUMBER = 1  
+OUTPUT_CSV = "pr_files.csv"
+# ===========================
 
 headers = {
     "Authorization": f"token {GITHUB_TOKEN}",
-    "Accept": "application/vnd.github.v3+json"
+    "Accept": "application/vnd.github.v3+json",
 }
 
-response = requests.get(url, headers=headers)
+url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/pulls/{PR_NUMBER}/files"
 
-if response.status_code == 200:
-    files = response.json()
-    changed_files = [file['filename'] for file in files]
-    print("Changed files in PR:")
-    for f in changed_files:
-        print(f)
+response = requests.get(url, headers=headers)
+files = response.json()
+
+if response.status_code != 200:
+    print("Error:", response.status_code, response.text)
 else:
-    print("Error:", response.status_code)
-    print("Message:", response.text)
+    print(f"Fetched {len(files)} changed files.")
+    with open(OUTPUT_CSV, mode="w", newline="") as file:
+        writer = csv.writer(file)
+        writer.writerow(["filename", "status", "additions", "deletions", "changes"])
+        for f in files:
+            writer.writerow([
+                f["filename"],
+                f["status"],
+                f["additions"],
+                f["deletions"],
+                f["changes"],
+            ])
+    print(f"Data written to {OUTPUT_CSV}")

@@ -2,11 +2,11 @@ import requests
 import csv
 import os
 
-# ====== CONFIGURATION ======
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")  # Make sure you export this in terminal
+# ====== CONFIGURATION ======  
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")  #export this in terminal
 REPO_OWNER = "prerana2005"
 REPO_NAME = "Code_Review_Analytics"
-PR_NUMBER = 1  # Change this to the pull request number you want to analyze
+PR_NUMBER = 1  
 OUTPUT_CSV = "pr_files.csv"
 # ===========================
 

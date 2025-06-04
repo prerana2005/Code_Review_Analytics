@@ -225,7 +225,7 @@ export GITHUB_TOKEN=your_token_here
   - `CCN` (cyclomatic complexity)
   - `token_count`, `parameter_count`, and `length`
   - `start_line` and computed `end_line` (as `start_line + length - 1`)
-    -(The end_line calculation is performed by the Jupyter notebook calculate_end_line.ipynb)
+    (end_line calculation is performed by calculate_end_line.ipynb)
 - Used to identify complex or risky functions.
 
 #### 3. get_pr_files.py

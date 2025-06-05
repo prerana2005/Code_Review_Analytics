@@ -252,3 +252,25 @@ export GITHUB_TOKEN=your_token_here
 - Final result showing only those functions from the PR that are considered risky.
 - Helps reviewers focus on potentially problematic code segments during review.
 
+---
+### Day 7
+
+#### Test Case for False Positive Risk Detection in PR Analysis
+
+**Objective:**  
+To simulate and catch a bug in the risk classification logic where a file containing  
+both complex and simple functions is always flagged as 'risky' even if the pull request  
+only modifies a simple function.
+
+**What was done:**  
+- Created a failing unit test in `tests/test_false_positive.py` using `unittest`  
+- Simulated input CSVs:  
+    • `tests/mock_lizard_output.csv`: Contains metadata for multiple functions in a file (some complex, some simple)  
+    • `tests/mock_pr_files.csv`: Simulates a pull request modifying only the simple function  
+- Wrote a test to check if such a PR is wrongly marked as risky  
+- Let the test fail intentionally, as the bug still exists
+
+**Key Outcome:**  
+This test fails as expected, showing that the current implementation doesn't check  
+*which specific function* is edited. It wrongly flags a PR as risky just because  
+a complex function exists in the file.

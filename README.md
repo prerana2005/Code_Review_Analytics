@@ -274,3 +274,21 @@ only modifies a simple function.
 This test fails as expected, showing that the current implementation doesn't check  
 *which specific function* is edited. It wrongly flags a PR as risky just because  
 a complex function exists in the file.
+---
+
+### Day 8 - Updates to False Positive Detection and Risk Analysis
+
+**Objective:**  
+Improve the risk detection logic to avoid false positives when PRs modify only simple functions,
+even if complex functions exist in the same file.
+
+**What was done:** 
+- Updated `tests/test_false_positive.py`:
+    • Added a proper unit test using mock CSVs.
+    • Introduced function `is_pr_risky()` to check if changed lines fall inside complex functions.
+    • Test confirms PR is NOT flagged risky if only simple functions are changed.
+
+- Refactored `analyze_risky_files.py`:
+    • Improved merge logic between PR files and Lizard complexity data.
+    • Added clear complexity filtering to identify risky functions.
+    • Modularized with function `get_risky_functions()` for easier testing and reuse.

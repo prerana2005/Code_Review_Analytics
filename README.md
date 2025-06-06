@@ -289,6 +289,7 @@ even if complex functions exist in the same file.
     • Test confirms PR is NOT flagged risky if only simple functions are changed.
 
 - Refactored `analyze_risky_files.py`:
+    • Simplified logic to **file-level granularity** (since real PRs don't include line numbers).
     • Improved merge logic between PR files and Lizard complexity data.
     • Added clear complexity filtering to identify risky functions.
     • Modularized with function `get_risky_functions()` for easier testing and reuse.

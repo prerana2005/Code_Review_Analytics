@@ -1,28 +1,25 @@
 import pandas as pd
 
-# Load the files
-pr_files = pd.read_csv('C:/Users/Prerana/Desktop/Code_Review_Analytics/pr_files.csv')
-lizard = pd.read_csv('C:/Users/Prerana/Desktop/Code_Review_Analytics/lizard_output_with_end_line.csv')
+def get_risky_functions(pr_df, lizard_df):
+    key = 'filepath' if 'filepath' in pr_df.columns and 'filepath' in lizard_df.columns else 'filename'
+    lizard_df = lizard_df.rename(columns={"CCN": "complexity"})
 
-# Show available columns
-print("PR files columns:", pr_files.columns)
-print("Lizard columns:", lizard.columns)
+    # Merge based on file path or filename
+    merged = pd.merge(pr_df, lizard_df, on=key, how='inner')
 
-# Decide on merge key
-key = 'filepath' if 'filepath' in pr_files.columns and 'filepath' in lizard.columns else 'filename'
+    # Filter only complex functions
+    risky_funcs = merged[merged['complexity'] > 10]
 
-# Rename CCN to complexity for easier understanding
-lizard.rename(columns={"CCN": "complexity"}, inplace=True)
+    # Return only relevant columns
+    return risky_funcs[[key, 'complexity', 'nloc']]
 
-# Merge PR and lizard data
-merged = pd.merge(pr_files, lizard, on=key, how='inner')
+if __name__ == "__main__":
+    pr_files = pd.read_csv("C:/Users/Prerana/Desktop/Code_Review_Analytics/pr_files.csv")
+    lizard = pd.read_csv("C:/Users/Prerana/Desktop/Code_Review_Analytics/lizard_output_with_end_line.csv")
 
-# Filter for risky files
-risky = merged[merged['complexity'] > 10]
+    risky_functions = get_risky_functions(pr_files, lizard)
 
-# Print risky files
-print("\nRisky files in your PR:")
-print(risky[[key, 'complexity', 'nloc']])
+    print("\nRisky functions touched in this PR:")
+    print(risky_functions)
 
-# Save to CSV
-risky.to_csv('risky_files_in_pr.csv', index=False)
+    risky_functions.to_csv("risky_files_in_pr.csv", index=False)

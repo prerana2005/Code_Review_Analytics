@@ -294,3 +294,9 @@ even if complex functions exist in the same file.
     - Improved merge logic between PR files and Lizard complexity data.
     - Added clear complexity filtering to identify risky functions.
     - Modularized with function `get_risky_functions()` for easier testing and reuse.
+
+### Updates 
+
+- Moved the `is_pr_risky()` function to `analyze_risky_files.py` for better modularity and reuse.
+
+- Updated the unit test (`tests/test_false_positive.py`) to import and use the real `is_pr_risky()` function instead of redefining it.

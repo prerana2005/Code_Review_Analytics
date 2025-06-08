@@ -12,6 +12,20 @@ def get_risky_functions(pr_df, lizard_df):
 
     # Return only relevant columns
     return risky_funcs[[key, 'complexity', 'nloc']]
+def is_pr_risky(pr_df, lizard_df):
+    for _, change in pr_df.iterrows():
+        file_path = change["filepath"]
+        changed_line = change["start_line"]
+
+        funcs_in_file = lizard_df[lizard_df["filepath"] == file_path]
+
+        for _, func in funcs_in_file.iterrows():
+            if func["CCN"] > 10:
+                func_start = func["start_line"]
+                func_end = func_start + func["length"] - 1
+                if func_start <= changed_line <= func_end:
+                    return True
+    return False
 
 if __name__ == "__main__":
     pr_files = pd.read_csv("C:/Users/Prerana/Desktop/Code_Review_Analytics/pr_files.csv")
@@ -23,3 +37,4 @@ if __name__ == "__main__":
     print(risky_functions)
 
     risky_functions.to_csv("risky_files_in_pr.csv", index=False)
+

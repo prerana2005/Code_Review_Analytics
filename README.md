@@ -295,8 +295,23 @@ even if complex functions exist in the same file.
     - Added clear complexity filtering to identify risky functions.
     - Modularized with function `get_risky_functions()` for easier testing and reuse.
 
+---
+### Day 9
 ### Updates 
 
 - Moved the `is_pr_risky()` function to `analyze_risky_files.py` for better modularity and reuse.
 
 - Updated the unit test (`tests/test_false_positive.py`) to import and use the real `is_pr_risky()` function instead of redefining it.
+
+---
+### Day 10
+
+## Added test_get_risky_functions.py
+
+### Purpose
+- Added a new test file to check how the `get_risky_functions()` function works in `analyze_risky_files.py`.
+- Makes sure the function finds risky functions based on their complexity and changes in the pull request.
+
+### How to Run
+```bash
+python -m unittest tests/test_get_risky_functions.py

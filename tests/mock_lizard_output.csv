@@ -1,4 +1,3 @@
-filepath,function_name,CCN,nloc
-src/file1.py,func_a,12,30
-src/file2.py,func_b,8,25
-src/file2.py,func_c,15,40
+function_name,start_line,length,CCN,filepath
+simple_func,5,5,2,example.py
+complex_func,15,10,15,example.py

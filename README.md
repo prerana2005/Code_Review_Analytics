@@ -312,6 +312,12 @@ even if complex functions exist in the same file.
 - Added a new test file to check how the `get_risky_functions()` function works in `analyze_risky_files.py`.
 - Makes sure the function finds risky functions based on their complexity and changes in the pull request.
 
-### How to Run
-```bash
-python -m unittest tests/test_get_risky_functions.py
+---
+Ensured the test correctly validates that modifying only a simple function does **not** mark the PR as risky.  
+
+- **Prepared mock data**:
+  - File contains **both a simple and a complex function**.
+  - PR modifies **only the simple function**.  
+- **Confirmed expected behavior**:  
+  - The test runs with mock data.  
+  - `is_pr_risky(...)` returns **`False`**, confirming that modifying only a simple function does **not** make the PR risky.  

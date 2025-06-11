@@ -1,40 +1,89 @@
 import pandas as pd
 
 def get_risky_functions(pr_df, lizard_df):
-    key = 'filepath' if 'filepath' in pr_df.columns and 'filepath' in lizard_df.columns else 'filename'
     lizard_df = lizard_df.rename(columns={"CCN": "complexity"})
 
-    # Merge based on file path or filename
-    merged = pd.merge(pr_df, lizard_df, on=key, how='inner')
+    risky_functions = []
 
-    # Filter only complex functions
-    risky_funcs = merged[merged['complexity'] > 10]
+    # Group changed lines by file
+    changed_lines_map = {}
+    for _, row in pr_df.iterrows():
+        filepath = row["filepath"]
+        line = int(row["start_line"])
+        changed_lines_map.setdefault(filepath, []).append(line)
 
-    # Return only relevant columns
-    return risky_funcs[[key, 'complexity', 'nloc']]
+    for _, func in lizard_df.iterrows():
+        if int(func["complexity"]) <= 10:
+            continue
+
+        filepath = func["filepath"]
+        func_start = int(func["start_line"])
+        func_end = int(func["end_line"])
+
+        if filepath not in changed_lines_map:
+            continue
+
+        for line in changed_lines_map[filepath]:
+            if func_start <= line <= func_end:
+                risky_functions.append({
+                    "filepath": filepath,
+                    "complexity": func["complexity"],
+                    "nloc": func["nloc"],
+                    "function_name": func["function_name"],
+                    "start_line": func_start,
+                    "end_line": func_end
+                })
+                break  # only report once per function
+
+    return pd.DataFrame(risky_functions)
+
 def is_pr_risky(pr_df, lizard_df):
-    for _, change in pr_df.iterrows():
-        file_path = change["filepath"]
-        changed_line = change["start_line"]
+    # Group changed lines by file
+    changed_lines_map = {}
+    for _, row in pr_df.iterrows():
+        filepath = row["filepath"]
+        line = int(row["start_line"])
+        changed_lines_map.setdefault(filepath, []).append(line)
 
-        funcs_in_file = lizard_df[lizard_df["filepath"] == file_path]
+    # Go through each risky function
+    for _, func in lizard_df.iterrows():
+        if int(func["CCN"]) <= 10:
+            continue
 
-        for _, func in funcs_in_file.iterrows():
-            if func["CCN"] > 10:
-                func_start = func["start_line"]
-                func_end = func_start + func["length"] - 1
-                if func_start <= changed_line <= func_end:
-                    return True
-    return False
+        filepath = func["filepath"]
+        func_start = int(func["start_line"])
+        func_end = int(func["end_line"])
+
+        if filepath not in changed_lines_map:
+            continue
+
+        # Check if any changed line falls within the function
+        for line in changed_lines_map[filepath]:
+            if func_start <= line <= func_end:
+                return True  # Risky function touched
+
+    return False  # No risky function touched
 
 if __name__ == "__main__":
-    pr_files = pd.read_csv("C:/Users/Prerana/Desktop/Code_Review_Analytics/pr_files.csv")
+    # Load PR changes (line-level) and Lizard output
+    pr_lines = pd.read_csv("C:/Users/Prerana/Desktop/Code_Review_Analytics/pr_lines.csv")
     lizard = pd.read_csv("C:/Users/Prerana/Desktop/Code_Review_Analytics/lizard_output_with_end_line.csv")
 
-    risky_functions = get_risky_functions(pr_files, lizard)
+    # Ensure correct types
+    pr_lines["start_line"] = pr_lines["start_line"].astype(int)
+    lizard["CCN"] = lizard["CCN"].astype(int)
+    lizard["start_line"] = lizard["start_line"].astype(int)
+    lizard["end_line"] = lizard["end_line"].astype(int)
 
-    print("\nRisky functions touched in this PR:")
+    # Risk analysis
+    if is_pr_risky(pr_lines, lizard):
+        print(" Risky PR: It modifies complex code.")
+    else:
+        print(" Safe PR: No risky functions changed.")
+
+    # Optional: Get detailed view of risky functions touched
+    risky_functions = get_risky_functions(pr_lines, lizard)
+    print("\n Risky functions touched in this PR:")
     print(risky_functions)
 
     risky_functions.to_csv("risky_files_in_pr.csv", index=False)
-

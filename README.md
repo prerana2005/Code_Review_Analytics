@@ -313,6 +313,8 @@ even if complex functions exist in the same file.
 - Makes sure the function finds risky functions based on their complexity and changes in the pull request.
 
 ---
+### Day 11
+
 Ensured the test correctly validates that modifying only a simple function does **not** mark the PR as risky.  
 
 - **Prepared mock data**:
@@ -321,3 +323,23 @@ Ensured the test correctly validates that modifying only a simple function does 
 - **Confirmed expected behavior**:  
   - The test runs with mock data.  
   - `is_pr_risky(...)` returns **`False`**, confirming that modifying only a simple function does **not** make the PR risky.  
+
+---
+### Day 12 
+
+### Goal- Line-Level Risk Detection (Avoiding False Positives)
+
+Improve the accuracy of risky PR detection by checking if the changed lines actually touch complex functions (`CCN > 10`) instead of just matching filenames.
+
+- **Modified `analyze_risky_files.py`**:
+  - Enhanced logic to ensure a PR is only marked "risky" if the **specific changed lines** fall inside functions with high cyclomatic complexity.
+  - Avoids false positives caused by only matching filenames.
+
+-  **Added `get_pr_changed_lines.py`**:
+  - Parses PR diffs to extract all line-level changes.
+  - Outputs `pr_lines.csv` with columns:
+    - `filepath`
+    - `start_line` (line number of each change in the PR)
+- Used `lizard_output_with_end_line.csv` which includes:
+  - Function name, file, `start_line`, and calculated `end_line` for accurate range checking.
+- Validated the logic with test PRs that modify only safe functions — correctly detected as "Safe PR".

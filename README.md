@@ -343,3 +343,34 @@ Improve the accuracy of risky PR detection by checking if the changed lines actu
 - Used `lizard_output_with_end_line.csv` which includes:
   - Function name, file, `start_line`, and calculated `end_line` for accurate range checking.
 - Validated the logic with test PRs that modify only safe functions — correctly detected as "Safe PR".
+  
+---
+### Day 13
+
+###  Enhanced `is_pr_risky()` logic:
+
+- Previously only checked if `start_line` of PR change fell inside a risky function.
+- Now supports three complete overlap cases:
+  -  Change starts **inside** risky function
+  -  Change starts **before** but ends **inside** risky function
+  -  Change **completely surrounds** risky function
+
+###  Modified input format in `pr_lines.csv`:
+
+- Now includes both `start_line` and `end_line` for each changed chunk to enable better range detection.
+
+###  Updated `analyze_risky_files.py`:
+
+- Now compares PR line ranges with function ranges for complete overlap detection using:
+  ```python
+  if not (change_end < func_start or change_start > func_end):
+      return True
+
+### Testing
+
+Created `tests/test_overlap_cases.py`:
+
+- Uses `pandas.DataFrame` to simulate:
+  - Risky function spans from lizard output
+  - Pull request change ranges with different overlap conditions
+- Covers and verifies all critical overlap scenarios

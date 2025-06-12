@@ -7,3 +7,8 @@ htmlcov/
 .tox/
 docs/_build/
 .env
+__pycache__/
+*.csv
+cra/
+cpython/
+flask/

@@ -54,10 +54,22 @@ for f in files:
         "changed_lines": changed_lines
     })
 
-# Save to flattened CSV: one row per changed line
 with open("pr_lines.csv", "w", newline="") as csvfile:
     writer = csv.writer(csvfile)
-    writer.writerow(["filepath", "start_line"])  # match lizard column names
+    writer.writerow(["filepath", "start_line", "end_line"])  # updated
+
     for item in changed_lines_data:
-        for line in item["changed_lines"]:
-            writer.writerow([item["filename"], line])
+        filename = item["filename"]
+        changed_lines = sorted(item["changed_lines"])
+
+        if not changed_lines:
+            continue
+
+        # Group consecutive lines into blocks
+        start = prev = changed_lines[0]
+        for line in changed_lines[1:]:
+            if line != prev + 1:
+                writer.writerow([filename, start, prev])
+                start = line
+            prev = line
+        writer.writerow([filename, start, prev])  # write final block

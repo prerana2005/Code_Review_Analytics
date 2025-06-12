@@ -38,31 +38,36 @@ def get_risky_functions(pr_df, lizard_df):
     return pd.DataFrame(risky_functions)
 
 def is_pr_risky(pr_df, lizard_df):
-    # Group changed lines by file
-    changed_lines_map = {}
+    # Build list of change blocks per file
+    changed_blocks_map = {}
     for _, row in pr_df.iterrows():
         filepath = row["filepath"]
-        line = int(row["start_line"])
-        changed_lines_map.setdefault(filepath, []).append(line)
+        start = int(row["start_line"])
+        end = int(row["end_line"])
+        changed_blocks_map.setdefault(filepath, []).append((start, end))
 
-    # Go through each risky function
+    # Check for overlap with risky functions
     for _, func in lizard_df.iterrows():
         if int(func["CCN"]) <= 10:
-            continue
+            continue  # skip non-risky
 
         filepath = func["filepath"]
         func_start = int(func["start_line"])
         func_end = int(func["end_line"])
 
-        if filepath not in changed_lines_map:
+        if filepath not in changed_blocks_map:
             continue
 
-        # Check if any changed line falls within the function
-        for line in changed_lines_map[filepath]:
-            if func_start <= line <= func_end:
-                return True  # Risky function touched
+        for (change_start, change_end) in changed_blocks_map[filepath]:
+            # Check for any overlap
+            if (
+                (func_start <= change_start <= func_end) or  # case 1
+                (func_start <= change_end <= func_end) or    # case 2
+                (change_start <= func_start and change_end >= func_end)  # case 3
+            ):
+                return True  # Overlaps with risky function
 
-    return False  # No risky function touched
+    return False
 
 if __name__ == "__main__":
     # Load PR changes (line-level) and Lizard output

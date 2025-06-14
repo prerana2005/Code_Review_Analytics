@@ -8,7 +8,13 @@ htmlcov/
 docs/_build/
 .env
 __pycache__/
+# Ignore all CSVs...
 *.csv
+
+# ...except test mock CSVs
+!tests/mock_pr_lines.csv
+!tests/mock_lizard_output_with_end_line.csv
+
 cra/
 cpython/
 flask/

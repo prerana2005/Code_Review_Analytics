@@ -18,3 +18,4 @@ __pycache__/
 cra/
 cpython/
 flask/
+__pycache__/

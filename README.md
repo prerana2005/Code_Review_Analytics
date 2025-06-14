@@ -374,3 +374,30 @@ Created `tests/test_overlap_cases.py`:
   - Risky function spans from lizard output
   - Pull request change ranges with different overlap conditions
 - Covers and verifies all critical overlap scenarios
+
+---
+### Day 14
+
+**1. Replaced Outdated Mock Test Files**
+
+- Removed:
+  - `tests/mock_pr_files.csv`
+  - `tests/mock_lizard_output.csv`
+
+- Added:
+  - `tests/mock_pr_lines.csv`  
+    → Format: `filepath, start_line, end_line`
+  - `tests/mock_lizard_output_with_end_line.csv`  
+    → Format: `function_name, start_line, end_line, CCN, filepath`
+
+**2. Updated Test Scripts to Match New File Format**
+
+- `test_get_risky_functions.py`
+  - Ensures risky functions (CCN > 10) are filtered from PR-touched files
+  - Uses new mock data format
+
+- `test_false_positive.py`
+  - Verifies that overlap detection behaves correctly using start/end line logic
+  - Uses the updated `mock_pr_lines.csv` and `mock_lizard_output_with_end_line.csv`
+
+---

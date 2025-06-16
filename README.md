@@ -401,3 +401,10 @@ Created `tests/test_overlap_cases.py`:
   - Uses the updated `mock_pr_lines.csv` and `mock_lizard_output_with_end_line.csv`
 
 ---
+###  Removed Unused Scripts and Old Test Data
+- Deleted `get_pr_files.py` (no longer needed)
+- Removed its generated output file 
+
+### Updated Input Format
+- Replaced `lizard_output_with_end_line.csv` with a new version that includes:
+  - `function_name, start_line, end_line, CCN, filepath`

@@ -1,7 +1,6 @@
 import pandas as pd
 
 def get_risky_functions(pr_df, lizard_df):
-    lizard_df = lizard_df.rename(columns={"CCN": "complexity"})
     risky_functions = []
 
     changed_lines_map = {}
@@ -26,7 +25,6 @@ def get_risky_functions(pr_df, lizard_df):
                 risky_functions.append({
                     "filepath": filepath,
                     "complexity": func["complexity"],
-                    "nloc": func["nloc"],
                     "function_name": func["function_name"],
                     "start_line": func_start,
                     "end_line": func_end
@@ -36,8 +34,6 @@ def get_risky_functions(pr_df, lizard_df):
     return pd.DataFrame(risky_functions)
 
 def is_pr_risky(pr_df, lizard_df):
-    lizard_df = lizard_df.rename(columns={"CCN": "complexity"})  # ✅ ensure consistency
-
     changed_blocks_map = {}
     for _, row in pr_df.iterrows():
         filepath = row["filepath"]
@@ -69,10 +65,12 @@ def is_pr_risky(pr_df, lizard_df):
 if __name__ == "__main__":
     pr_lines = pd.read_csv("C:/Users/Prerana/Desktop/Code_Review_Analytics/pr_lines.csv")
     lizard = pd.read_csv("C:/Users/Prerana/Desktop/Code_Review_Analytics/lizard_output_with_end_line.csv")
+    lizard.columns = lizard.columns.str.strip() 
+    lizard = lizard.rename(columns={"CCN": "complexity"}) 
 
     pr_lines["start_line"] = pr_lines["start_line"].astype(int)
     pr_lines["end_line"] = pr_lines["end_line"].astype(int)
-    lizard["CCN"] = lizard["CCN"].astype(int)
+    lizard["complexity"] = lizard["complexity"].astype(int) 
     lizard["start_line"] = lizard["start_line"].astype(int)
     lizard["end_line"] = lizard["end_line"].astype(int)
 

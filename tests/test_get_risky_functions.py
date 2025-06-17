@@ -6,7 +6,8 @@ class TestRiskyFunctions(unittest.TestCase):
     def test_returns_only_risky_functions(self):
         pr_data = pd.DataFrame({
             "filepath": ["file2.py"],
-            "start_line": [16]  # Line falls inside complex_func range
+            "start_line": [16],  # Line falls inside complex_func range
+            "end_line": [16]
         })
 
         lizard_data = pd.DataFrame({
@@ -14,8 +15,7 @@ class TestRiskyFunctions(unittest.TestCase):
             "function_name": ["complex_func"],
             "start_line": [15],
             "end_line": [25],
-            "complexity": [12],
-            "nloc": [35],
+            "complexity": [12]
         })
 
         result = get_risky_functions(pr_data, lizard_data)

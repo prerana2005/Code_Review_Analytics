@@ -1,3 +1,3 @@
-function_name,start_line,end_line,CCN,filepath
+function_name,start_line,end_line,complexity,filepath
 simple_func,5,9,2,example.py
 complex_func,15,24,15,example.py

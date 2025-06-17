@@ -6,8 +6,9 @@ def get_risky_functions(pr_df, lizard_df):
     changed_lines_map = {}
     for _, row in pr_df.iterrows():
         filepath = row["filepath"]
-        line = int(row["start_line"])
-        changed_lines_map.setdefault(filepath, []).append(line)
+        start = int(row["start_line"])
+        end = int(row["end_line"])
+        changed_lines_map.setdefault(filepath, []).extend(range(start, end + 1))
 
     for _, func in lizard_df.iterrows():
         if int(func["complexity"]) <= 10:

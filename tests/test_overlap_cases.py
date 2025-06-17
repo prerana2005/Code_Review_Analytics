@@ -7,7 +7,7 @@ from analyze_risky_files import is_pr_risky
 
 # Mock risky function from lizard output
 lizard_df = pd.DataFrame([
-    {"filepath": "example.py", "start_line": 20, "end_line": 30, "CCN": 15},
+    {"filepath": "example.py","function_name": "risky_function", "start_line": 20, "end_line": 30, "complexity": 15},
 ])
 
 # Simulated PR line changes with overlap cases

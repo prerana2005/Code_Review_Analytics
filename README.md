@@ -417,3 +417,22 @@ Created `tests/test_overlap_cases.py`:
 - Updated `analyze_risky_files.py` to:
   - Read and process the new `lizard_output_with_end_line.csv` structure correctly
 
+---
+
+###  Code Quality & Pylint Improvements
+
+To ensure professional and maintainable code, the entire codebase was refactored and improved using **pylint**, achieving a **10/10 score** across all Python files.
+
+###  Improvements Made
+
+-  **Added** module, class, and function docstrings
+-  **Standardized** import ordering
+-  **Resolved** all pylint warnings (e.g., variable naming, use of `sys.exit`)
+-  **Wrapped** long lines to follow PEP8 (≤100 characters)
+-  **Removed** trailing whitespace and ensured consistent formatting
+-  **Removed** unused imports and variables
+-  **Fixed** relative imports in test modules
+-  **Cleaned and documented** all test files
+-  **Specified** UTF-8 encoding in file read/write operations
+
+These changes improve code readability, maintainability, and readiness for collaboration or scaling.

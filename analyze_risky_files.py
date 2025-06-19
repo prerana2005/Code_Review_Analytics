@@ -1,6 +1,14 @@
+"""Analyze PR changes and identify risky functions based on complexity."""
+
 import pandas as pd
 
 def get_risky_functions(pr_df, lizard_df):
+    """
+    Returns a DataFrame of risky functions that overlap with PR changes.
+
+    A function is considered risky if its complexity is greater than 10,
+    and if any PR change overlaps with its lines.
+    """
     risky_functions = []
 
     changed_lines_map = {}
@@ -35,6 +43,11 @@ def get_risky_functions(pr_df, lizard_df):
     return pd.DataFrame(risky_functions)
 
 def is_pr_risky(pr_df, lizard_df):
+    """
+    Returns True if any risky function (complexity > 10) is touched by PR changes.
+
+    It checks for any overlap between changed line blocks and risky function lines.
+    """
     changed_blocks_map = {}
     for _, row in pr_df.iterrows():
         filepath = row["filepath"]
@@ -64,14 +77,18 @@ def is_pr_risky(pr_df, lizard_df):
     return False
 
 if __name__ == "__main__":
-    pr_lines = pd.read_csv("C:/Users/Prerana/Desktop/Code_Review_Analytics/pr_lines.csv")
-    lizard = pd.read_csv("C:/Users/Prerana/Desktop/Code_Review_Analytics/lizard_output_with_end_line.csv")
-    lizard.columns = lizard.columns.str.strip() 
-    lizard = lizard.rename(columns={"CCN": "complexity"}) 
+    pr_lines = pd.read_csv(
+        "C:/Users/Prerana/Desktop/Code_Review_Analytics/pr_lines.csv"
+        )
+    lizard = pd.read_csv(
+        "C:/Users/Prerana/Desktop/Code_Review_Analytics/lizard_output_with_end_line.csv"
+        )
+    lizard.columns = lizard.columns.str.strip()
+    lizard = lizard.rename(columns={"CCN": "complexity"})
 
     pr_lines["start_line"] = pr_lines["start_line"].astype(int)
     pr_lines["end_line"] = pr_lines["end_line"].astype(int)
-    lizard["complexity"] = lizard["complexity"].astype(int) 
+    lizard["complexity"] = lizard["complexity"].astype(int)
     lizard["start_line"] = lizard["start_line"].astype(int)
     lizard["end_line"] = lizard["end_line"].astype(int)
 
@@ -80,8 +97,8 @@ if __name__ == "__main__":
     else:
         print("Safe PR: No risky functions changed.")
 
-    risky_functions = get_risky_functions(pr_lines, lizard)
+    risky_funcs_df = get_risky_functions(pr_lines, lizard)
     print("\n Risky functions touched in this PR:")
-    print(risky_functions)
+    print(risky_funcs_df)
 
-    risky_functions.to_csv("risky_files_in_pr.csv", index=False)
+    risky_funcs_df.to_csv("risky_files_in_pr.csv", index=False)

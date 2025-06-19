@@ -1,9 +1,12 @@
-import requests
+"""Fetches PR changed lines from GitHub and writes them to a CSV."""
+
 import os
+import sys
 import re
 import csv
+import requests
 
-# ====== CONFIGURATION ======  
+# ====== CONFIGURATION ======
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")  # export this in terminal
 REPO_OWNER = "prerana2005"
 REPO_NAME = "Code_Review_Analytics"
@@ -16,13 +19,13 @@ headers = {
 }
 
 # URL to get the list of files changed in the PR
-url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/pulls/{PR_NUMBER}/files"
+URL = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/pulls/{PR_NUMBER}/files"
 
-response = requests.get(url, headers=headers)
+response = requests.get(URL, headers=headers, timeout=10)
 
 if response.status_code != 200:
     print("Error:", response.status_code, response.text)
-    exit()
+    sys.exit()
 
 files = response.json()
 changed_lines_data = []
@@ -40,6 +43,7 @@ for f in files:
     changed_lines = []
 
     current_line = None
+
     for line in patch.split("\n"):
         if line.startswith("@@"):
             match = re.search(r"\+(\d+)", line)
@@ -54,7 +58,7 @@ for f in files:
         "changed_lines": changed_lines
     })
 
-with open("pr_lines.csv", "w", newline="") as csvfile:
+with open("pr_lines.csv", "w", newline="", encoding="utf-8") as csvfile:
     writer = csv.writer(csvfile)
     writer.writerow(["filepath", "start_line", "end_line"])  # updated
 
@@ -72,4 +76,4 @@ with open("pr_lines.csv", "w", newline="") as csvfile:
                 writer.writerow([filename, start, prev])
                 start = line
             prev = line
-        writer.writerow([filename, start, prev])  # write final block
+        writer.writerow([filename, start, prev]) # write final block

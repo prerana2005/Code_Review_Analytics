@@ -1,9 +1,14 @@
+"""Unit test for the get_risky_functions method in analyze_risky_files.py."""
+
 import unittest
 import pandas as pd
 from analyze_risky_files import get_risky_functions
 
 class TestRiskyFunctions(unittest.TestCase):
+    """Tests whether get_risky_functions correctly identifies complex changed functions."""
+
     def test_returns_only_risky_functions(self):
+        """Should return risky functions with complexity > 10 that were touched by the PR."""   
         pr_data = pd.DataFrame({
             "filepath": ["file2.py"],
             "start_line": [16],  # Line falls inside complex_func range

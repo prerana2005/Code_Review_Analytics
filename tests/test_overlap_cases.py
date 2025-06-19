@@ -1,9 +1,13 @@
+"""Unit test for checking overlap cases in risky PR detection."""
+
 import unittest
 import pandas as pd
 from analyze_risky_files import is_pr_risky
 
 class TestOverlapCases(unittest.TestCase):
+    """Tests that overlapping PR changes with complex functions are flagged as risky."""
     def test_detects_overlap_as_risky(self):
+        """Should flag PR as risky if changes overlap with complex function blocks."""
         lizard_df = pd.DataFrame([
             {
                 "filepath": "example.py",

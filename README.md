@@ -436,3 +436,18 @@ To ensure professional and maintainable code, the entire codebase was refactored
 -  **Specified** UTF-8 encoding in file read/write operations
 
 These changes improve code readability, maintainability, and readiness for collaboration or scaling.
+
+---
+
+###  `get_pr_changed_lines.py`
+
+To ensure the code is **cleaner**, **modular**, and **Pylint-compliant**, the logic was split into two focused helper functions:
+-  One for **parsing patch lines** from the GitHub PR.
+-  One for **writing grouped changed line blocks** to a CSV.
+
+###  analyze_risky_files.py – Using pandas vectorized logic
+
+- The logic is fully vectorized using pandas; no `iterrows()` or row-wise loops are used.
+- PR and function data are joined using `merge()` on the `filepath` column.
+- Overlap between PR lines and function lines is detected using direct column comparisons.
+- This ensures efficient and scalable processing for large PR datasets.

@@ -445,7 +445,7 @@ To ensure the code is **cleaner**, **modular**, and **Pylint-compliant**, the lo
 -  One for **parsing patch lines** from the GitHub PR.
 -  One for **writing grouped changed line blocks** to a CSV.
 
-###  analyze_risky_files.py – Using pandas vectorized logic
+###  `analyze_risky_files.py`  – Using pandas vectorized logic
 
 - The logic is fully vectorized using pandas; no `iterrows()` or row-wise loops are used.
 - PR and function data are joined using `merge()` on the `filepath` column.

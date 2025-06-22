@@ -401,6 +401,7 @@ Created `tests/test_overlap_cases.py`:
   - Uses the updated `mock_pr_lines.csv` and `mock_lizard_output_with_end_line.csv`
 
 ---
+### Day 15
 **3. Removed Unused Scripts and Old Test Data**
 
 - Deleted:
@@ -418,6 +419,7 @@ Created `tests/test_overlap_cases.py`:
   - Read and process the new `lizard_output_with_end_line.csv` structure correctly
 
 ---
+### Day 16
 
 ###  Code Quality & Pylint Improvements
 
@@ -438,6 +440,7 @@ To ensure professional and maintainable code, the entire codebase was refactored
 These changes improve code readability, maintainability, and readiness for collaboration or scaling.
 
 ---
+### Day 17
 
 ###  `get_pr_changed_lines.py`
 
@@ -451,3 +454,26 @@ To ensure the code is **cleaner**, **modular**, and **Pylint-compliant**, the lo
 - PR and function data are joined using `merge()` on the `filepath` column.
 - Overlap between PR lines and function lines is detected using direct column comparisons.
 - This ensures efficient and scalable processing for large PR datasets.
+
+---
+### Day 18
+
+## Refactored `get_pr_changed_lines.py`
+
+- Replaced row-wise iteration with **column-wise vectorized operations** using pandas.
+- Improved performance and code clarity when grouping contiguous changed lines in a PR.
+
+### Column Operations Used
+
+| Operation      | Purpose                                                                 |
+|----------------|-------------------------------------------------------------------------|
+| `.diff()`       | Detects breaks in line continuity by computing differences between rows. |
+| `.shift()`      | Compares each file row with the previous one to detect file changes.     |
+| `.cumsum()`     | Generates unique group IDs by cumulatively summing boolean change markers. |
+| `.groupby()`    | Groups rows by `filepath` and `group_id` to collect blocks of changes.   |
+| `.agg()`        | Aggregates grouped blocks to compute `start_line` and `end_line`.         |
+
+## Edge Case Handling
+
+- Skipped files with missing or empty `patch` data from the GitHub API.
+- CSV output (`pr_lines.csv`) is only written if valid changed lines exist.

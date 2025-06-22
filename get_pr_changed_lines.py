@@ -1,4 +1,7 @@
-"""Fetches PR changed lines from GitHub and writes them to a CSV using pandas with column-wise operations."""
+"""
+   Fetches PR changed lines from GitHub and writes them to a CSV
+   using pandas with column-wise operations.
+"""
 
 import os
 import sys

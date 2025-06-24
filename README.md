@@ -477,3 +477,36 @@ To ensure the code is **cleaner**, **modular**, and **Pylint-compliant**, the lo
 
 - Skipped files with missing or empty `patch` data from the GitHub API.
 - CSV output (`pr_lines.csv`) is only written if valid changed lines exist.
+
+---
+
+## GitHub Actions Integration
+
+Integrating **GitHub Actions** into the project to automate **pull request (PR) risk analysis**
+The goal is to allow the system to automatically evaluate a PR and output whether it is **risky** or **safe**, based on the complexity and overlap of the changed lines.
+
+All GitHub Actions workflow setup was done in a separate working branch:  
+**Branch**: `pr-risk-check-test`
+
+###  Implemented GitHub Action Workflow
+-  Created `.github/workflows/pr_risk_check.yml`
+-  This workflow:
+  - Runs when a PR is opened or updated
+  - Uses `run_analysis.py` to check the PR for risk
+  - Prints whether the PR is risky or not
+
+###  GitHub Actions Output Screenshot
+
+Below is an example output from the GitHub Actions workflow that runs on every pull request:
+
+![Image](https://github.com/user-attachments/assets/82d369b8-f9e5-4728-b21e-9ca8f3c714fc)
+
+### 📝 Screenshot Explanation
+- **Line 1**: The GitHub Action runs the command `python run_analysis.py --pr 2`
+- **Lines 14-23**: It lists the changed files in PR #2
+- **Line 25**: It indicates the output CSV was saved (`pr_lines.csv`)
+- **Line 26**: The result: `Risky PR: It modifies complex code.`
+
+This confirms the automation is correctly analyzing pull requests and surfacing potential risks for reviewers.
+
+---

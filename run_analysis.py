@@ -1,4 +1,10 @@
-# run_analysis.py
+"""
+run_analysis.py
+
+This script runs a risk analysis on a given GitHub pull request.
+It checks which files and functions are changed and whether those
+changes touch complex parts of the codebase.
+"""
 
 import argparse
 import subprocess
@@ -7,16 +13,18 @@ import pandas as pd
 from analyze_risky_files import is_pr_risky, get_risky_functions
 
 def main():
+    """
+    Main function to parse PR number, run PR line extraction,
+    perform risk analysis using complexity metrics, and output the result.
+    """
     parser = argparse.ArgumentParser(description="Check if a PR is risky.")
     parser.add_argument("--pr", type=int, required=True, help="Pull Request number")
     args = parser.parse_args()
 
-    # Set environment variables (same as your hardcoded values)
     os.environ["REPO_OWNER"] = "prerana2005"
     os.environ["REPO_NAME"] = "Code_Review_Analytics"
     os.environ["PR_NUMBER"] = str(args.pr)
 
-    # Run the existing get_pr_changed_lines script as-is
     subprocess.run(["python", "get_pr_changed_lines.py"], check=True)
 
     # Load PR changed lines CSV (output of the above script)

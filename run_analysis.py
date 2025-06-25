@@ -27,14 +27,14 @@ def main():
     os.environ["REPO_NAME"] = args.repo_name
     os.environ["PR_NUMBER"] = str(args.pr_number)
 
-    subprocess.run(["python", os.path.join(os.path.dirname(__file__), "get_pr_changed_lines.py")], check=True)
+    subprocess.run(["python", "Code_Review_Analytics/get_pr_changed_lines.py"], check=True)
 
     pr_lines = pd.read_csv("pr_lines.csv")
     if pr_lines.empty:
         print("This PR is safe. No changes found.")
         return
 
-    lizard = pd.read_csv("lizard_output_with_end_line.csv")
+    lizard = pd.read_csv("Code_Review_Analytics/lizard_output_with_end_line.csv")
     lizard.columns = lizard.columns.str.strip()
     lizard = lizard.rename(columns={"CCN": "complexity"})
 

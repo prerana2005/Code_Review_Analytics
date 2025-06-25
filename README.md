@@ -510,3 +510,38 @@ Below is an example output from the GitHub Actions workflow that runs on every p
 This confirms the automation is correctly analyzing pull requests and surfacing potential risks for reviewers.
 
 ---
+
+### 1. Made Inputs Dynamic
+
+The GitHub Action runs a Python script (`run_analysis.py`) using dynamic inputs:
+
+- `--repo_owner`
+- `--repo_name`
+- `--pr_number`
+
+These values are passed using GitHub's context variables:
+
+```yaml
+--repo_owner: ${{ github.repository_owner }}
+--repo_name: ${{ github.event.repository.name }}
+--pr_number: ${{ github.event.pull_request.number }}
+```
+
+### 2. Created a Separate Repo: `analytics_user`
+
+A new repository named `analytics_user` created to simulate real-world usage.
+
+It includes:
+
+- `dummy.py`: A simple Python file to test changes.
+- `.github/workflows/risk_check.yml`: A GitHub Action that triggers on PR events.
+
+### 3. GitHub Action Trigger
+
+The risk analysis runs automatically when a pull request is opened or updated:
+
+```yaml
+on:
+  pull_request:
+    types: [opened, synchronize]
+```

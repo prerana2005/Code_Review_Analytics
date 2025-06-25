@@ -1,11 +1,2 @@
 filepath,start_line,end_line
-dummy_test.py,1,2
-flask,1,1
-risky_test_files/risk1.py,1,21
-risky_test_files/risk2.py,1,14
-risky_test_files/risk3.py,1,12
-risky_test_files/risk4.py,1,20
-risky_test_files/risk5.py,1,17
-risky_test_files/risk6.py,1,23
-risky_test_files/safe1.py,1,2
-risky_test_files/safe2.py,1,2
+dummy.py,1,15

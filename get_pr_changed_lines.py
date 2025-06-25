@@ -10,10 +10,10 @@ import requests
 import pandas as pd
 
 # ====== CONFIGURATION ======
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")  # export this in terminal
-REPO_OWNER = "prerana2005"
-REPO_NAME = "Code_Review_Analytics"
-PR_NUMBER = 1
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+REPO_OWNER = os.getenv("REPO_OWNER")
+REPO_NAME = os.getenv("REPO_NAME")
+PR_NUMBER = int(os.getenv("PR_NUMBER", 0))
 # ===========================
 
 headers = {

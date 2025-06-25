@@ -27,7 +27,7 @@ def main():
     os.environ["REPO_NAME"] = args.repo_name
     os.environ["PR_NUMBER"] = str(args.pr_number)
 
-    subprocess.run(["python", "get_pr_changed_lines.py"], check=True)
+    subprocess.run(["python", os.path.join(os.path.dirname(__file__), "get_pr_changed_lines.py")], check=True)
 
     pr_lines = pd.read_csv("pr_lines.csv")
     if pr_lines.empty:

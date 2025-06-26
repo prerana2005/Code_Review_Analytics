@@ -479,6 +479,7 @@ To ensure the code is **cleaner**, **modular**, and **Pylint-compliant**, the lo
 - CSV output (`pr_lines.csv`) is only written if valid changed lines exist.
 
 ---
+### Day 19
 
 ## GitHub Actions Integration
 
@@ -510,6 +511,7 @@ Below is an example output from the GitHub Actions workflow that runs on every p
 This confirms the automation is correctly analyzing pull requests and surfacing potential risks for reviewers.
 
 ---
+### Day 20
 
 ### 1. Made Inputs Dynamic
 
@@ -545,3 +547,31 @@ on:
   pull_request:
     types: [opened, synchronize]
 ```
+
+---
+### Day 21
+
+### 1. Refactored Code into a Package
+
+- Created a new folder `pr_risk_checker/` inside the `Code_Review_Analytics` repo.
+- Moved the logic from `run_analysis.py` into `pr_risk_checker/__init__.py`.
+- Converted the script into a reusable function:
+
+```python
+def run_main_logic(repo_owner, repo_name, pr_number):
+```
+
+### 2. Built a CLI Interface
+
+- Created `cli.py` inside the `pr_risk_checker/` package.
+- Used `argparse` to wrap the logic and allow it to be executed from the terminal.
+- Run command looks like:
+
+```bash
+python -m pr_risk_checker.cli --repo_owner <user> --repo_name <repo> --pr_number <pr>
+```
+
+### 3. Integrated with GitHub Actions
+
+- Updated the `analytics_user` repository’s workflow file (`.github/workflows/risk_check.yml`).
+- The workflow now automatically runs the CLI tool during pull requests, passing the PR metadata.

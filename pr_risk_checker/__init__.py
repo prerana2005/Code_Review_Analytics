@@ -32,6 +32,15 @@ def run_main_logic(repo_owner, repo_name, pr_number):
         print(" Safe PR: No changes found.")
         return
 
+    if not os.path.exists("lizard_output_with_end_line.csv"):
+        print("Generating lizard_output_with_end_line.csv...")
+        subprocess.run([
+            "lizard",
+            "-CSV",
+            "-o", "lizard_output_with_end_line.csv",
+            "."
+        ], check=True)
+
     lizard = pd.read_csv("lizard_output_with_end_line.csv")
     lizard.columns = lizard.columns.str.strip()
     lizard = lizard.rename(columns={"CCN": "complexity"})

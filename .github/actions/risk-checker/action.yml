@@ -23,6 +23,7 @@ runs:
     - name: Install dependencies
       run: |
         pip install -r "${{ github.action_path }}/../../../requirements.txt"
+        pip install lizard
       shell: bash
 
     - name: Set PYTHONPATH to root

@@ -17,10 +17,9 @@ PR_NUMBER = int(os.getenv("PR_NUMBER", 0))
 # ===========================
 
 headers = {
-    "Authorization": f"token {GITHUB_TOKEN}",
+    "Authorization": f"token {os.environ['GITHUB_TOKEN']}",
     "Accept": "application/vnd.github.v3+json",
 }
-
 
 def parse_patch_lines(patch, filename):
     """Extract changed lines from a diff patch string."""

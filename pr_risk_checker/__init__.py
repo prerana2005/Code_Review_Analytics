@@ -19,6 +19,7 @@ def run_main_logic(repo_owner, repo_name, pr_number):
 
     print(f" Analyzing PR #{pr_number} in {repo_owner}/{repo_name}")
 
+    os.environ["GITHUB_TOKEN"] = os.getenv("GITHUB_TOKEN")
     os.environ["REPO_OWNER"] = repo_owner
     os.environ["REPO_NAME"] = repo_name
     os.environ["PR_NUMBER"] = str(pr_number)

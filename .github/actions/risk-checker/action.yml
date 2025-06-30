@@ -1,0 +1,34 @@
+name: PR Risk Checker
+description: Check if a pull request is risky based on code complexity and changes
+
+inputs:
+  repo_owner:
+    required: true
+    description: Owner of the GitHub repository
+  repo_name:
+    required: true
+    description: Name of the GitHub repository
+  pr_number:
+    required: true
+    description: Pull request number
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+
+    - name: Install dependencies
+      run: |
+        pip install -r "${{ github.action_path }}/../../../requirements.txt"
+      shell: bash
+
+    - name: Run Risk Checker CLI
+      run: |
+        python -m pr_risk_checker.cli \
+          --repo_owner "${{ inputs.repo_owner }}" \
+          --repo_name "${{ inputs.repo_name }}" \
+          --pr_number "${{ inputs.pr_number }}"
+      shell: bash

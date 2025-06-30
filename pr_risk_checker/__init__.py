@@ -20,7 +20,8 @@ def run_main_logic(repo_owner, repo_name, pr_number):
     os.environ["REPO_NAME"] = repo_name
     os.environ["PR_NUMBER"] = str(pr_number)
 
-    script_path = os.path.join(os.path.dirname(__file__), "get_pr_changed_lines.py")
+    # Path: one level above this file
+    script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "get_pr_changed_lines.py"))
     subprocess.run(["python", script_path], check=True)
 
     pr_lines = pd.read_csv("pr_lines.csv")

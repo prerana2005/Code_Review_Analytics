@@ -36,7 +36,6 @@ def run_main_logic(repo_owner, repo_name, pr_number):
         print("Generating lizard_output_with_end_line.csv...")
         subprocess.run([
             "lizard",
-            "-CSV",
             "-o", "lizard_output_with_end_line.csv",
             "."
         ], check=True)

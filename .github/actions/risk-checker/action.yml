@@ -25,11 +25,12 @@ runs:
         pip install -r "${{ github.action_path }}/../../../requirements.txt"
       shell: bash
 
-    - name: Add Code_Review_Analytics to PYTHONPATH
-      run: echo "PYTHONPATH=${{ github.action_path }}/../../../" >> $GITHUB_ENV
+    - name: Set PYTHONPATH to root
+      run: |
+        echo "PYTHONPATH=${{ github.action_path }}/../../../" >> $GITHUB_ENV
       shell: bash
 
-    - name: Run Risk Checker CLI
+    - name: Run PR Risk Checker
       run: |
         python -m pr_risk_checker.cli \
           --repo_owner "${{ inputs.repo_owner }}" \

@@ -1,6 +1,10 @@
 import os
+import sys
 import subprocess
 import pandas as pd
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 from analyze_risky_files import is_pr_risky, get_risky_functions
 
 def run_main_logic(repo_owner, repo_name, pr_number):
@@ -15,12 +19,10 @@ def run_main_logic(repo_owner, repo_name, pr_number):
 
     print(f" Analyzing PR #{pr_number} in {repo_owner}/{repo_name}")
 
-    # Set environment variables for use in get_pr_changed_lines.py
     os.environ["REPO_OWNER"] = repo_owner
     os.environ["REPO_NAME"] = repo_name
     os.environ["PR_NUMBER"] = str(pr_number)
 
-    # Path: one level above this file
     script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "get_pr_changed_lines.py"))
     subprocess.run(["python", script_path], check=True)
 

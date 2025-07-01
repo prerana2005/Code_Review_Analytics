@@ -6,6 +6,7 @@ import pandas as pd
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from analyze_risky_files import is_pr_risky, get_risky_functions
+from pr_risk_checker.generate_lizard_csv import analyze_codebase
 
 def run_main_logic(repo_owner, repo_name, pr_number):
     """
@@ -34,12 +35,7 @@ def run_main_logic(repo_owner, repo_name, pr_number):
 
     if not os.path.exists("lizard_output_with_end_line.csv"):
         print("Generating lizard_output_with_end_line.csv...")
-        subprocess.run([
-            "lizard",
-            "--csv",
-            "-o", "lizard_output_with_end_line.csv",
-            "."
-        ], check=True)
+        analyze_codebase(["."], "lizard_output_with_end_line.csv")
 
     lizard = pd.read_csv("lizard_output_with_end_line.csv")
     lizard.columns = lizard.columns.str.strip()

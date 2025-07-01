@@ -3,6 +3,10 @@
 """
 
 import pandas as pd
+import os
+
+def normalize_path(path):
+    return os.path.normpath(path).lstrip("./\\")
 
 def get_risky_functions(pr_df, lizard_df):
     """
@@ -21,6 +25,10 @@ def get_risky_functions(pr_df, lizard_df):
         "end_line": "end_line_func"
         })
 
+    # Normalize file paths
+    pr_df["filepath"] = pr_df["filepath"].apply(normalize_path)
+    risky_funcs["filepath"] = risky_funcs["filepath"].apply(normalize_path)
+    
     # Merge PR changes and risky functions on filepath
     merged = pr_df.merge(risky_funcs, on="filepath", how="inner")
 
@@ -45,8 +53,8 @@ def is_pr_risky(pr_df, lizard_df):
     """
     Returns True if any risky function (complexity > 10) is touched by PR changes.
     """
-    risky_files = lizard_df[lizard_df["complexity"] > 10]["filepath"].unique()
-    changed_files = pr_df["filepath"].unique()
+    risky_files = {normalize_path(f) for f in lizard_df[lizard_df["complexity"] > 10]["filepath"].unique()}
+    changed_files = {normalize_path(f) for f in pr_df["filepath"].unique()}
 
     print("RISKY FILES:", risky_files)
     print("CHANGED FILES:", changed_files)

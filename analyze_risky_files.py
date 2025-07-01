@@ -47,6 +47,10 @@ def is_pr_risky(pr_df, lizard_df):
     """
     risky_files = lizard_df[lizard_df["complexity"] > 10]["filepath"].unique()
     changed_files = pr_df["filepath"].unique()
+
+    print("RISKY FILES:", risky_files)
+    print("CHANGED FILES:", changed_files)
+    
     return any(file in risky_files for file in changed_files)
 
 if __name__ == "__main__":

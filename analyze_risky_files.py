@@ -45,8 +45,9 @@ def is_pr_risky(pr_df, lizard_df):
     """
     Returns True if any risky function (complexity > 10) is touched by PR changes.
     """
-    risky_functions_df = get_risky_functions(pr_df, lizard_df)
-    return not risky_functions_df.empty
+    risky_files = lizard_df[lizard_df["complexity"] > 10]["filepath"].unique()
+    changed_files = pr_df["filepath"].unique()
+    return any(file in risky_files for file in changed_files)
 
 if __name__ == "__main__":
 

@@ -575,3 +575,88 @@ python -m pr_risk_checker.cli --repo_owner <user> --repo_name <repo> --pr_number
 
 - Updated the `analytics_user` repository’s workflow file (`.github/workflows/risk_check.yml`).
 - The workflow now automatically runs the CLI tool during pull requests, passing the PR metadata.
+
+---
+### GitHub Actions Workflow: Pull Request Risk Analysis
+
+The workflow is triggered when a Pull Request is opened or updated in the `analytics-user` repository.
+
+### Step-by-Step Execution Flow
+
+#### 1. Set Up Job
+
+- GitHub prepares the runner environment.
+- Loads `GITHUB_TOKEN` and other secrets.
+- Prepares workflow and downloads required actions.
+
+#### 2. Checkout Repositories
+
+The following repositories are checked out during execution:
+
+- `analytics-user`: The target repository where the PR is raised.
+- `Code_Review_Analytics`: Contains the reusable composite action that performs the risk analysis.
+
+#### 3. Set Up Python Environment
+
+- Python is installed using `actions/setup-python@v4`.
+- This prepares the Python runtime required for analysis scripts.
+
+#### 4. Install Required Dependencies
+
+- All Python dependencies are installed from `Code_Review_Analytics/requirements.txt`:
+  - `pandas`
+  - `requests`
+
+#### 5. Execute PR Risk Checker
+
+The composite action runs the following command:
+
+```bash
+python -m pr_risk_checker.cli
+```
+
+### Inside `cli.py`
+
+The `cli.py` module is the entry point for the PR Risk Checker logic. It performs the following key steps:
+
+
+#### 1. Extract PR Context
+
+- Retrieves metadata such as:
+  - PR number
+  - List of changed files
+  - GitHub repository information
+
+#### 2. Detect Changed Lines
+
+- Parses the file diffs from the PR.
+- Identifies and extracts blocks of changed lines.
+- Saves the output to:
+  - `pr_lines.csv`
+
+#### 3. Run Complexity Analysis
+
+- Uses the `lizard` library to compute:
+  - Cyclomatic complexity
+  - Function sizes
+- Scans the entire codebase or changed files.
+- Saves the output to:
+  - `lizard_output_with_end_line.csv`
+
+#### 4. Match Complexity with Changes
+
+- Matches changed lines with complex code regions.
+- Determines if any risky sections were modified.
+- If so, flags the PR as risky.
+
+#### 5. Log Result
+
+- Logs the final result in GitHub Actions console:
+  - If risky:
+    ```
+    Risky PR: It modifies complex code.
+    ```
+  - If safe:
+    ```
+    Safe PR: No risky changes detected.
+    ```

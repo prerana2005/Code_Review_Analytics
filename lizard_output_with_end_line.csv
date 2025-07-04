@@ -1,9 +1,1 @@
-function_name,start_line,end_line,CCN,filepath
-risk1,1,21,9,risky_test_files/risk1.py
-risk2,1,14,7,risky_test_files/risk2.py
-risk3,1,12,9,risky_test_files/risk3.py
-risk4,1,20,8,risky_test_files/risk4.py
-risk5,1,17,7,risky_test_files/risk5.py
-risk6,1,23,11,risky_test_files/risk6.py
-safe1,1,2,1,risky_test_files/safe1.py
-safe2,1,2,1,risky_test_files/safe2.py
+

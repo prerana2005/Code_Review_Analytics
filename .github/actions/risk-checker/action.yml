@@ -22,13 +22,11 @@ runs:
 
     - name: Install dependencies
       run: |
-        pip install -r "${{ github.action_path }}/../../../requirements.txt"
-        pip install lizard
+        pip install -r requirements.txt
       shell: bash
 
-    - name: Set PYTHONPATH to root
-      run: |
-        echo "PYTHONPATH=${{ github.action_path }}/../../../" >> $GITHUB_ENV
+    - name: Set PYTHONPATH
+      run: echo "PYTHONPATH=${{ github.workspace }}" >> $GITHUB_ENV
       shell: bash
 
     - name: Run PR Risk Checker
@@ -39,4 +37,4 @@ runs:
           --pr_number "${{ inputs.pr_number }}"
       shell: bash
       env:
-        GITHUB_TOKEN: ${{ github.token }}
+        GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}

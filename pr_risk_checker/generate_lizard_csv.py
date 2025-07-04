@@ -1,7 +1,17 @@
 import lizard
 import pandas as pd
 
-def analyze_codebase(code_dirs, output_csv):
+def analyze_codebase(code_dirs, output_format="df"):
+    """
+    Analyzes code complexity using Lizard and returns a DataFrame.
+
+    Args:
+        code_dirs (list[str]): List of paths to analyze (e.g., ['.'])
+        output_format (str): 'df' returns a DataFrame
+
+    Returns:
+        pd.DataFrame: DataFrame with function-level complexity
+    """
     data = []
     for result in lizard.analyze(code_dirs):
         for function in result.function_list:
@@ -14,5 +24,8 @@ def analyze_codebase(code_dirs, output_csv):
             })
 
     df = pd.DataFrame(data)
-    df.to_csv(output_csv, index=False, encoding="utf-8")
-    print(" Lizard output written to {output_csv}")
+
+    if output_format == "df":
+        return df
+    else:
+        raise ValueError(f"Unsupported output format: {output_format}")

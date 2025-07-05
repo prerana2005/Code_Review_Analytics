@@ -1,4 +1,4 @@
-name: PR Risk Check
+name: PR Risk Checker
 
 on:
   pull_request:
@@ -7,13 +7,11 @@ on:
 jobs:
   check-risk:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Run PR Risk Checker
-        uses: ./.github/actions/pr-risk-checker
+        uses: ./Code_Review_Analytics/.github/actions/risk-checker
         with:
           repo_owner: ${{ github.repository_owner }}
           repo_name: ${{ github.event.repository.name }}

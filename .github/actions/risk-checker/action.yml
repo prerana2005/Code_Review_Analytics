@@ -36,3 +36,5 @@ runs:
           --repo_name "${{ inputs.repo_name }}" \
           --pr_number "${{ inputs.pr_number }}"
       shell: bash
+      env:
+        GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}

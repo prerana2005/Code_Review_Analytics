@@ -38,7 +38,7 @@ def group_lines_to_blocks_vectorized(changed_lines):
     blocks = (
         df.groupby(["filepath", "group_id"])
         .agg(start_line=("line", "min"), end_line=("line", "max"))
-        .reset_index(drop=True)
+        .reset_index()
     )
 
     return blocks

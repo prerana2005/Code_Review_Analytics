@@ -37,4 +37,4 @@ runs:
           --pr_number "${{ inputs.pr_number }}"
       shell: bash
       env:
-        GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ github.token }}

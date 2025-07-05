@@ -22,11 +22,11 @@ runs:
 
     - name: Install dependencies
       run: |
-        pip install -r "$GITHUB_WORKSPACE/requirements.txt"
+        pip install -r "$GITHUB_WORKSPACE/Code_Review_Analytics/requirements.txt"
       shell: bash
 
     - name: Set PYTHONPATH
-      run: echo "PYTHONPATH=${{ github.workspace }}" >> $GITHUB_ENV
+      run: echo "PYTHONPATH=$GITHUB_WORKSPACE/Code_Review_Analytics" >> $GITHUB_ENV
       shell: bash
 
     - name: Run PR Risk Checker

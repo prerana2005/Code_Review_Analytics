@@ -660,3 +660,31 @@ The `cli.py` module is the entry point for the PR Risk Checker logic. It perform
     ```
     Safe PR: No risky changes detected.
     ```
+---
+### Optimization Summary
+
+### `pr_risk_checker/__init__.py`
+- Replaced subprocess-based invocation of `get_pr_changed_lines.py` with a direct function call to `extract_pr_changed_line_blocks`.
+- Integrated Lizard and PR line data in-memory without intermediate CSVs.
+- Ensured consistent use of DataFrames passed between logic layers.
+
+### `pr_risk_checker/get_pr_changed_lines.py`
+- No CSV files used — returns a DataFrame of `filepath`, `start_line`, and `end_line`.
+
+### `pr_risk_checker/generate_lizard_csv.py`
+- Renamed and repurposed to return a DataFrame instead of writing CSV output.
+- Clean `analyze_codebase()` function now analyzes complexity using `lizard` and returns structured metrics in memory.
+
+### `pr_risk_checker/analyze_risky_files.py`
+- Updated to operate fully on in-memory pandas DataFrames.
+- Implements efficient file-path normalization and overlap detection.
+- Contains core risk analysis logic (`is_pr_risky` and `get_risky_functions`).
+
+### `pr_risk_checker/cli.py`
+-Directly invokes streamlined logic without subprocesses or file I/O.
+
+### Removed/Avoided
+
+-  Subprocess spawning (` get_pr_changed_lines.py`)  
+-  Writing and reading temporary CSVs  
+-  Redundant GitHub API calls (e.g., re-fetching changed files) 

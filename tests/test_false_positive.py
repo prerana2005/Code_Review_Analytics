@@ -5,7 +5,7 @@ import os
 import unittest
 import pandas as pd
 
-from analyze_risky_files import is_pr_risky
+from pr_risk_checker.analyze_risky_files import is_pr_risky
 # Add project root to Python path so we can import analyze_risky_files
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 

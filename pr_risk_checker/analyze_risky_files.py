@@ -41,12 +41,10 @@ def get_risky_functions(pr_df, lizard_df, risk_threshold=10):
         "end_line_func": "end_line"
     })
 
-
 def is_pr_risky(pr_df, lizard_df, risk_threshold=10):
     """
-    Returns True if any risky function (complexity > threshold) is touched by PR changes.
+    Returns True if any risky function (complexity > threshold)
+    is touched by PR changes (via line overlap).
     """
-    risky_files = {normalize_path(f) for f in lizard_df[lizard_df["complexity"] > risk_threshold]["filepath"].unique()}
-    changed_files = {normalize_path(f) for f in pr_df["filepath"].unique()}
-
-    return any(file in risky_files for file in changed_files)
+    risky_touched = get_risky_functions(pr_df, lizard_df, risk_threshold)
+    return not risky_touched.empty

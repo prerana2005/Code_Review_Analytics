@@ -2,7 +2,7 @@
 
 import unittest
 import pandas as pd
-from analyze_risky_files import get_risky_functions
+from pr_risk_checker.analyze_risky_files import get_risky_functions
 
 class TestRiskyFunctions(unittest.TestCase):
     """Tests whether get_risky_functions correctly identifies complex changed functions."""

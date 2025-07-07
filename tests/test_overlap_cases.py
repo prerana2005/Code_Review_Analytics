@@ -2,7 +2,7 @@
 
 import unittest
 import pandas as pd
-from analyze_risky_files import is_pr_risky
+from pr_risk_checker.analyze_risky_files import is_pr_risky
 
 class TestOverlapCases(unittest.TestCase):
     """Tests that overlapping PR changes with complex functions are flagged as risky."""

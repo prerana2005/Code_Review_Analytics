@@ -1,7 +1,14 @@
+"""
+CLI entry point for running the PR risk checker with GitHub PR metadata.
+"""
+
 import argparse
 from pr_risk_checker import run_main_logic
 
 def main():
+    """
+    Entry point for parsing GitHub Action inputs and running PR risk analysis.
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument('--repo_owner', required=True)
     parser.add_argument('--repo_name', required=True)

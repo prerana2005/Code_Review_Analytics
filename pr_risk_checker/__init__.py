@@ -1,3 +1,4 @@
+"""Initialize pr_risk_checker package."""
 import os
 import pandas as pd
 from pr_risk_checker.get_pr_changed_lines import extract_pr_changed_line_blocks

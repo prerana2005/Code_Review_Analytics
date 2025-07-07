@@ -1,3 +1,6 @@
+"""
+Analyze code complexity using Lizard and return a structured DataFrame.
+"""
 import lizard
 import pandas as pd
 
@@ -27,5 +30,4 @@ def analyze_codebase(code_dirs, output_format="df"):
 
     if output_format == "df":
         return df
-    else:
-        raise ValueError(f"Unsupported output format: {output_format}")
+    raise ValueError(f"Unsupported output format: {output_format}")

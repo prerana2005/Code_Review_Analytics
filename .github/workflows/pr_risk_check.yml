@@ -11,6 +11,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Run PR Risk Checker
+        id: riskcheck
         uses: ./Code_Review_Analytics/.github/actions/risk-checker
         with:
           repo_owner: ${{ github.repository_owner }}
@@ -18,3 +19,12 @@ jobs:
           pr_number: ${{ github.event.pull_request.number }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Print PR Risk Status
+        run: echo "PR is risky? ${{ steps.riskcheck.outputs.is_risky }}"
+
+      - name: Fail if risky
+        if: steps.riskcheck.outputs.is_risky == 'true'
+        run: |
+          echo "This PR is risky! Please review carefully."
+          exit 1

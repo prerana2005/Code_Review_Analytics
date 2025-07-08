@@ -12,6 +12,11 @@ inputs:
     required: true
     description: Pull request number
 
+outputs:
+  is_risky:
+    description: "Whether the PR is considered risky"
+    value: ${{ steps.run_risk.outputs.is_risky }}
+
 runs:
   using: "composite"
   steps:
@@ -30,6 +35,7 @@ runs:
       shell: bash
 
     - name: Run PR Risk Checker
+      id: run_risk
       run: |
         python -m pr_risk_checker.cli \
           --repo_owner "${{ inputs.repo_owner }}" \

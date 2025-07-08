@@ -23,6 +23,11 @@ jobs:
       - name: Print PR Risk Status
         run: echo "PR is risky? ${{ steps.riskcheck.outputs.is_risky }}"
 
+      - name: Debug riskcheck output
+        run: |
+          echo "Debug - Output from riskcheck step:"
+          echo "IS_RISKY=${{ steps.riskcheck.outputs.is_risky }}"
+
       - name: Fail if risky
         if: steps.riskcheck.outputs.is_risky == 'true'
         run: |

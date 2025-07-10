@@ -40,7 +40,15 @@ runs:
         python -m pr_risk_checker.cli \
           --repo_owner "${{ inputs.repo_owner }}" \
           --repo_name "${{ inputs.repo_name }}" \
-          --pr_number "${{ inputs.pr_number }}"
+          --pr_number "${{ inputs.pr_number }}" > output.txt
+
+        tail -n 10 output.txt
+
+        IS_RISKY=$(grep -oP 'is_risky=\K(true|false)' output.txt | tail -1)
+
+        echo "Detected is_risky=$IS_RISKY"
+
+        echo "is_risky=$IS_RISKY" >> "$GITHUB_OUTPUT"
       shell: bash
       env:
         GITHUB_TOKEN: ${{ github.token }}

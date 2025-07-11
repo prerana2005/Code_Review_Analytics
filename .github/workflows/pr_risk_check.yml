@@ -1,3 +1,6 @@
+# Assign reviewer if PR is risky
+# Note: This step requires a GH_PAT secret to be set in the repository
+# It won't work in forked repositories unless GH_PAT is added manually
 name: PR Risk Checker
 
 on:
@@ -18,7 +21,7 @@ jobs:
           repo_name: ${{ github.event.repository.name }}
           pr_number: ${{ github.event.pull_request.number }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
       - name: Print PR Risk Status
         run: echo "PR is risky? ${{ steps.riskcheck.outputs.is_risky }}"
@@ -28,8 +31,14 @@ jobs:
           echo "Debug - Output from riskcheck step:"
           echo "IS_RISKY=${{ steps.riskcheck.outputs.is_risky }}"
 
-      - name: Fail if risky
+      - name: Assign reviewer if risky
         if: steps.riskcheck.outputs.is_risky == 'true'
         run: |
-          echo "This PR is risky! Please review carefully."
-          exit 1
+          python Code_Review_Analytics/pr_risk_checker/assign_reviewer.py
+        env:
+          REPO_OWNER: ${{ github.repository_owner }}
+          REPO_NAME: ${{ github.event.repository.name }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          REVIEWER: "senior-reviewer"  # Change this to an actual GitHub username

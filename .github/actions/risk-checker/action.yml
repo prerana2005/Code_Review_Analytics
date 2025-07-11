@@ -51,4 +51,4 @@ runs:
         echo "is_risky=$IS_RISKY" >> "$GITHUB_OUTPUT"
       shell: bash
       env:
-        GITHUB_TOKEN: ${{ github.token }}
+        GITHUB_TOKEN: ${{ secrets.GH_PAT }}

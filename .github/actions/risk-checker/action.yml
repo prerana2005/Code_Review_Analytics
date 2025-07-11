@@ -11,6 +11,9 @@ inputs:
   pr_number:
     required: true
     description: Pull request number
+  token:
+    required: true
+    description: GitHub token to call GitHub API
 
 outputs:
   is_risky:
@@ -51,4 +54,4 @@ runs:
         echo "is_risky=$IS_RISKY" >> "$GITHUB_OUTPUT"
       shell: bash
       env:
-        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        GITHUB_TOKEN: ${{ inputs.token }}

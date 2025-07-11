@@ -20,8 +20,7 @@ jobs:
           repo_owner: ${{ github.repository_owner }}
           repo_name: ${{ github.event.repository.name }}
           pr_number: ${{ github.event.pull_request.number }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          token: ${{ secrets.GH_PAT }}
 
       - name: Print PR Risk Status
         run: echo "PR is risky? ${{ steps.riskcheck.outputs.is_risky }}"

@@ -40,6 +40,7 @@ runs:
     - name: Run PR Risk Checker
       id: run_risk
       run: |
+        export GITHUB_TOKEN="${{ inputs.token }}"
         python -m pr_risk_checker.cli \
           --repo_owner "${{ inputs.repo_owner }}" \
           --repo_name "${{ inputs.repo_name }}" \

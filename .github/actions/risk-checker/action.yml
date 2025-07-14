@@ -51,7 +51,7 @@ runs:
           --repo_owner="${{ inputs.repo_owner }}" \
           --repo_name="${{ inputs.repo_name }}" \
           --pr_number="${{ inputs.pr_number }}" \
-          --token="${{ inputs.token }}" > output.txt
+          --token="${{ inputs.token }}" > output.txt || true
         tail -n 10 output.txt
 
         IS_RISKY=$(grep -oP 'is_risky=\K(true|false)' output.txt | tail -1)

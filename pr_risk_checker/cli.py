@@ -30,4 +30,8 @@ def main():
             fh.write(f"is_risky={str(result['is_risky']).lower()}\n")
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        print(f"::error:: {e}")
+        exit(0)

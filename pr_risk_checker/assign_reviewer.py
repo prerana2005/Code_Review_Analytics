@@ -64,6 +64,8 @@ if __name__ == "__main__":
     if risky_df.empty or not is_very_risky(risky_df):
         print(" PR not very risky — no reviewer assignment needed.")
         exit(0)
+    else:
+        print(" Risky PR — assigning reviewer.")
 
     pr_author = get_pr_author(repo_owner, repo_name, pr_number, token)
     reviewer = pick_random_reviewer(reviewers, exclude=pr_author)

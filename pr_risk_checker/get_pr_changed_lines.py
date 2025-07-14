@@ -49,8 +49,7 @@ def extract_pr_changed_line_blocks(repo_owner, repo_name, pr_number, request_hea
     response = requests.get(url, headers=request_headers, timeout=10)
 
     if response.status_code != 200:
-        print("Error:", response.status_code, response.text)
-        sys.exit()
+        raise ValueError(f"GitHub API returned {response.status_code}: {response.text}")
 
     files = response.json()
     changed_lines = []

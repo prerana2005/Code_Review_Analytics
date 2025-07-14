@@ -32,7 +32,9 @@ def main():
 if __name__ == "__main__":
     try:
         main()
+    except ValueError as ve:
+        print(f"Error: {ve}")
+        exit(1)  # fail on bad input like invalid PR
     except Exception as e:
-        print(f"::error:: {e}")
-    finally:
-        exit(0)
+        print(f"Unexpected Error: {e}")
+        exit(1)  # fail on unhandled issues

@@ -13,9 +13,9 @@ jobs:
       - name: Debug Token Present
         run: |
           if [ -z "${{ secrets.GH_PAT }}" ]; then
-            echo " GH_PAT is EMPTY or not set"
+            echo "GH_PAT is EMPTY or not set"
           else
-            echo " GH_PAT is present"
+            echo "GH_PAT is present"
           fi
 
       - name: Set up Python
@@ -28,12 +28,20 @@ jobs:
 
       - name: Run PR Risk Checker
         id: riskcheck
+        continue-on-error: true
         run: |
           echo "Running PR Risk Checker..."
-          python3 -m pr_risk_checker.cli \
+
+          output=$(python3 -m pr_risk_checker.cli \
             --repo_owner ${{ github.repository_owner }} \
             --repo_name ${{ github.event.repository.name }} \
-            --pr_number ${{ github.event.pull_request.number }}
+            --pr_number ${{ github.event.pull_request.number }})
+
+          echo "$output"
+
+          # Extract is_risky value from the output
+          is_risky=$(echo "$output" | grep -oP 'is_risky=\K(true|false)')
+          echo "is_risky=$is_risky" >> "$GITHUB_OUTPUT"
         working-directory: Code_Review_Analytics
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
@@ -57,4 +65,4 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-          REVIEWER: "senior-reviewer"  # Change this to an actual GitHub username
+          REVIEWER: "senior-reviewer"  # Replace with actual GitHub username

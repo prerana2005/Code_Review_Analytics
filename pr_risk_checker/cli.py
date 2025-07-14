@@ -31,7 +31,7 @@ if __name__ == "__main__":
         sys.exit(0)
     except ValueError as ve:
         print(f"::warning:: ValueError: {ve}")
-
+        
         if "GITHUB_OUTPUT" in os.environ:
             with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as fh:
                 fh.write("is_risky=false\n")

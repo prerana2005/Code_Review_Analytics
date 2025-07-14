@@ -10,6 +10,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Debug Token Present
+        run: |
+          if [ -z "${{ secrets.GH_PAT }}" ]; then
+            echo " GH_PAT is EMPTY or not set"
+          else
+            echo " GH_PAT is present"
+          fi
+
       - name: Run PR Risk Checker
         id: riskcheck
         uses: ./Code_Review_Analytics/.github/actions/risk-checker

@@ -40,10 +40,13 @@ runs:
     - name: Run PR Risk Checker
       id: run_risk
       run: |
-        echo "🛠️ Running PR Risk Checker with:"
+        echo " Running PR Risk Checker with:"
         echo "  repo_owner=${{ inputs.repo_owner }}"
         echo "  repo_name=${{ inputs.repo_name }}"
         echo "  pr_number=${{ inputs.pr_number }}"
+
+        # Export GITHUB_TOKEN so Python can see it
+        export GITHUB_TOKEN="${{ inputs.token }}"
 
         python -m pr_risk_checker.cli \
           --repo_owner="${{ inputs.repo_owner }}" \
@@ -58,5 +61,3 @@ runs:
 
         echo "is_risky=$IS_RISKY" >> "$GITHUB_OUTPUT"
       shell: bash
-      env:
-        GITHUB_TOKEN: ${{ inputs.token }}

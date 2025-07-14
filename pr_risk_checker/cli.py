@@ -27,13 +27,15 @@ def main():
 
 if __name__ == "__main__":
     try:
-        sys.exit(main())
+        main()
+        sys.exit(0)
     except ValueError as ve:
         print(f"::warning:: ValueError: {ve}")
+
         if "GITHUB_OUTPUT" in os.environ:
             with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as fh:
                 fh.write("is_risky=false\n")
         sys.exit(0)
     except Exception as e:
-        print(f"::error:: Unexpected error: {e}")
+        print(f"::error:: Unexpected Error: {e}")
         sys.exit(1)

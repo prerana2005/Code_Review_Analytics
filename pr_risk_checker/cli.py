@@ -33,7 +33,7 @@ def main():
 
 if __name__ == "__main__":
     try:
-        main()
+        result = main()
     except ValueError as ve:
         print(f"Error: {ve}")
         exit(1)  # fail on bad input like invalid PR

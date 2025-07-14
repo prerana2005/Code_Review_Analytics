@@ -13,7 +13,7 @@ def main():
     parser.add_argument('--repo_owner', required=True)
     parser.add_argument('--repo_name', required=True)
     parser.add_argument('--pr_number', type=int, required=True)
-    parser.add_argument('--token', required=False)
+    parser.add_argument('--token', required=False, help='GitHub token')
 
     args = parser.parse_args()
 

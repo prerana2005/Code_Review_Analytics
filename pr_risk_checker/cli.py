@@ -13,9 +13,15 @@ def main():
     parser.add_argument('--repo_owner', required=True)
     parser.add_argument('--repo_name', required=True)
     parser.add_argument('--pr_number', type=int, required=True)
+    parser.add_argument('--token', required=False)
+
     args = parser.parse_args()
 
-    result = run_main_logic(args.repo_owner, args.repo_name, args.pr_number)
+    token = args.token or os.environ.get("GITHUB_TOKEN")
+    if not token:
+        raise EnvironmentError("GITHUB_TOKEN is not set")
+    result = run_main_logic(args.repo_owner, args.repo_name, args.pr_number, token=token)
+
     print(f"::notice:: is_risky={result['is_risky']}")
 
     # If running inside GitHub Actions, send result to output

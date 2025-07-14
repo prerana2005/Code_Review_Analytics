@@ -5,7 +5,7 @@ from pr_risk_checker.get_pr_changed_lines import extract_pr_changed_line_blocks
 from pr_risk_checker.analyze_risky_files import is_pr_risky, get_risky_functions
 from pr_risk_checker.generate_lizard_csv import analyze_codebase
 
-def run_main_logic(repo_owner, repo_name, pr_number):
+def run_main_logic(repo_owner, repo_name, pr_number, token):
     """
     Executes the risk analysis pipeline for a given pull request.
     
@@ -22,7 +22,7 @@ def run_main_logic(repo_owner, repo_name, pr_number):
     """
     print(f"Analyzing PR #{pr_number} in {repo_owner}/{repo_name}")
 
-    github_token = os.getenv("GITHUB_TOKEN")
+    github_token = token
     
     if github_token:
         print("DEBUG: GITHUB_TOKEN was successfully set in the environment.")

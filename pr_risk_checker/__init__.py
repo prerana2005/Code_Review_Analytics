@@ -23,7 +23,11 @@ def run_main_logic(repo_owner, repo_name, pr_number):
     print(f"Analyzing PR #{pr_number} in {repo_owner}/{repo_name}")
 
     github_token = os.getenv("GITHUB_TOKEN")
-    if not github_token:
+    
+    if github_token:
+        print("DEBUG: GITHUB_TOKEN was successfully set in the environment.")
+    else:
+        print("DEBUG: GITHUB_TOKEN is missing or empty in environment.")
         raise EnvironmentError("GITHUB_TOKEN is not set")
 
     headers = {

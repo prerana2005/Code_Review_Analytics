@@ -43,7 +43,7 @@ runs:
         python -m pr_risk_checker.cli \
           --repo_owner "${{ inputs.repo_owner }}" \
           --repo_name "${{ inputs.repo_name }}" \
-          --pr_number "${{ inputs.pr_number }}" > output.txt
+          --pr_number "${{ inputs.pr_number }}" > output.txt 2&1
 
         tail -n 10 output.txt
 

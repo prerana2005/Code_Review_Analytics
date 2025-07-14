@@ -37,6 +37,10 @@ runs:
       run: echo "PYTHONPATH=$GITHUB_WORKSPACE/Code_Review_Analytics" >> $GITHUB_ENV
       shell: bash
 
+    - name: Set GITHUB_TOKEN
+      run: echo "GITHUB_TOKEN=${{ inputs.token }}" >> $GITHUB_ENV
+      shell: bash
+
     - name: Run PR Risk Checker
       id: run_risk
       run: |
@@ -44,8 +48,6 @@ runs:
         echo "  repo_owner=${{ inputs.repo_owner }}"
         echo "  repo_name=${{ inputs.repo_name }}"
         echo "  pr_number=${{ inputs.pr_number }}"
-
-        export GITHUB_TOKEN="${{ inputs.token }}" >> $GITHUB_ENV
        
         python -m pr_risk_checker.cli \
           --repo_owner="${{ inputs.repo_owner }}" \
@@ -55,8 +57,6 @@ runs:
         tail -n 10 output.txt
 
         IS_RISKY=$(grep -oP 'is_risky=\K(true|false)' output.txt | tail -1)
-
         echo "Detected is_risky=$IS_RISKY"
-
         echo "is_risky=$IS_RISKY" >> "$GITHUB_OUTPUT"
       shell: bash

@@ -28,6 +28,8 @@ def main():
     if "GITHUB_OUTPUT" in os.environ:
         with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as fh:
             fh.write(f"is_risky={str(result['is_risky']).lower()}\n")
+            
+    return result
 
 if __name__ == "__main__":
     try:

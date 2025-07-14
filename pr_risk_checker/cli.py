@@ -34,4 +34,5 @@ if __name__ == "__main__":
         main()
     except Exception as e:
         print(f"::error:: {e}")
+    finally:
         exit(0)

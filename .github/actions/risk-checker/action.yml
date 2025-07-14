@@ -41,7 +41,7 @@ runs:
       id: run_risk
       run: |
         set +e
-        
+
         echo " Running PR Risk Checker with:"
         echo "  repo_owner=${{ inputs.repo_owner }}"
         echo "  repo_name=${{ inputs.repo_name }}"
@@ -53,7 +53,7 @@ runs:
           --repo_owner="${{ inputs.repo_owner }}" \
           --repo_name="${{ inputs.repo_name }}" \
           --pr_number="${{ inputs.pr_number }}" \
-          --token="${{ inputs.token }}" > output.txt 2>&1
+          --token="${{ inputs.token }}" > output.txt 2>&1 || true
 
         tail -n 10 output.txt || true
 

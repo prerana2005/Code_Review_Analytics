@@ -16,21 +16,20 @@ def main():
         raise EnvironmentError("GITHUB_TOKEN is not set")
 
     result = run_main_logic(args.repo_owner, args.repo_name, args.pr_number, token=token)
+
     print(f"::notice:: is_risky={result['is_risky']}")
 
-    # GitHub Actions output
     if "GITHUB_OUTPUT" in os.environ:
         with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as fh:
             fh.write(f"is_risky={str(result['is_risky']).lower()}\n")
 
-    return result
+    return 0
 
 if __name__ == "__main__":
     try:
-        result = main()
+        sys.exit(main())
     except ValueError as ve:
         print(f"::warning:: ValueError: {ve}")
-        print("::notice:: is_risky=false")
         if "GITHUB_OUTPUT" in os.environ:
             with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as fh:
                 fh.write("is_risky=false\n")

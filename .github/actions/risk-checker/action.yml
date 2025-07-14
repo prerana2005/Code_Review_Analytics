@@ -45,10 +45,8 @@ runs:
         echo "  repo_name=${{ inputs.repo_name }}"
         echo "  pr_number=${{ inputs.pr_number }}"
 
-        export GITHUB_TOKEN="${{ inputs.token }}"
-        
-        echo "GITHUB_TOKEN is set? $( [ -z \"$GITHUB_TOKEN\" ] && echo ' No' || echo ' Yes' )"
-        
+        export GITHUB_TOKEN="${{ inputs.token }}" >> $GITHUB_ENV
+       
         python -m pr_risk_checker.cli \
           --repo_owner="${{ inputs.repo_owner }}" \
           --repo_name="${{ inputs.repo_name }}" \

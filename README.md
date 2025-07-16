@@ -688,3 +688,131 @@ The `cli.py` module is the entry point for the PR Risk Checker logic. It perform
 -  Subprocess spawning (` get_pr_changed_lines.py`)  
 -  Writing and reading temporary CSVs  
 -  Redundant GitHub API calls (e.g., re-fetching changed files) 
+
+---
+## Reviewer Assignment
+- Implemented `assign_reviewer.py` script:
+- Assigns reviewers only if the PR is risky.
+- Excludes:
+  - PR author
+  - Authors of risky code 
+
+## Reviewer Assignment Logic
+- Inputs:
+- `REPO_OWNER`, `REPO_NAME`, `PR_NUMBER`, `GITHUB_TOKEN`, `REVIEWERS`
+- Uses GitHub API to:
+- Fetch PR details
+- Assign reviewer (if valid)
+- Skips if:
+- Not risky
+- Reviewer list is empty after exclusions
+- `risky_functions.csv` is missing
+
+---
+
+##  `pr_risk_check.yml` — Inline Execution in `Code_Review_Analytics`
+
+Runs when a PR is opened or synchronized in the `Code_Review_Analytics` repository.
+
+### Workflow Steps
+
+1. **Checkout code**
+
+2. **Debug check**  
+   Verifies if the `GH_PAT` token is present
+
+3. **Set up Python 3.11**
+   
+4. **Install dependencies**  
+   From `Code_Review_Analytics/requirements.txt`:
+
+5. **Run risk checker inline** (not using the custom action):
+   ```bash
+   python3 -m pr_risk_checker.cli \
+     --repo_owner ${{ github.repository_owner }} \
+     --repo_name ${{ github.event.repository.name }} \
+     --pr_number ${{ github.event.pull_request.number }}
+   ```
+
+   - This runs `cli.py`, which calls `run_main_logic()` from `__init__.py`.
+
+6. **Extract `is_risky` output** from the CLI:
+   ```bash
+   is_risky=$(echo "$output" | grep -oP 'is_risky=\K(true|false)')
+   ```
+
+7. **Assign reviewer** if `is_risky == true`:
+   ```bash
+   python3 Code_Review_Analytics/scripts/assign_reviewer.py
+   ```
+
+---
+
+## `risk_check.yml` — Custom Action Usage in `analytics-user`
+
+Runs when a PR is opened or synchronized in the `analytics-user` repository.
+
+### Workflow Steps
+
+1. **Checkout this repo** (`analytics-user`)
+
+2. **Checkout external `Code_Review_Analytics` repo**
+   ```yaml
+   - name: Checkout Code Review Analytics
+     uses: actions/checkout@v4
+     with:
+       repository: org/Code_Review_Analytics
+       token: ${{ secrets.GH_PAT }}
+       path: Code_Review_Analytics
+   ```
+
+3. **Set up Python 3.11**
+ 
+4. **Install dependencies**
+   ```bash
+   pip install -r Code_Review_Analytics/requirements.txt
+   ```
+
+5. **Run custom GitHub Action**
+   ```yaml
+   - name: Run Risk Checker
+     uses: ./.github/actions/risk-checker
+   ```
+
+   > This internally uses `action.yml` from `Code_Review_Analytics`.
+
+6. **Extract `is_risky` output** from the action:
+   ```bash
+   is_risky=$(echo "$output" | grep -oP 'is_risky=\K(true|false)')
+   ```
+
+7. **If risky, assign reviewer using GitHub CLI**
+   ```bash
+   gh pr edit $PR_URL --add-reviewer senior-reviewer
+   ```
+   
+
+### When the CLI is called (both inline & custom action):
+```bash
+python -m pr_risk_checker.cli \
+  --repo_owner=... \
+  --repo_name=... \
+  --pr_number=... \
+  --token=...
+```
+
+### `cli.py` calls:
+```python
+from . import run_main_logic
+run_main_logic(repo_owner, repo_name, pr_number, token)
+```
+
+##  `run_main_logic()` — Breakdown
+
+This function (in `__init__.py`) performs the core risk analysis logic.
+
+- Fetches changed lines via GitHub API  
+- Uses `lizard` to calculate complexity  
+- Compares risky functions with PR changes  
+- If risky, logs and saves the affected functions in artifacts/risky_files_in_pr.csv
+

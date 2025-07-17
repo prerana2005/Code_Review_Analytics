@@ -137,8 +137,13 @@ def main():
 
     try:
         pr_author = get_pr_author(repo_owner, repo_name, pr_number, token)
+        print(f"PR Author: {pr_author}")
+        print(f"Available Reviewers: {reviewers}")
+
         reviewer = pick_random_reviewer(reviewers, exclude=pr_author)
+
         if reviewer:
+            print(f"Selected Reviewer: {reviewer}")
             assign_reviewer(repo_owner, repo_name, pr_number, token, reviewer)
         else:
             print("No eligible reviewer found after excluding PR author.")

@@ -65,4 +65,4 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-          REVIEWERS: "senior-reviewer"  # Replace with actual GitHub username
+          REVIEWERS: "senior1,senior2,senior3"  # Replace with actual GitHub username

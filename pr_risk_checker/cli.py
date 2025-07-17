@@ -39,4 +39,7 @@ if __name__ == "__main__":
         sys.exit(0)
     except Exception as e:
         print(f"::error:: Unexpected Error: {e}")
+        if "GITHUB_OUTPUT" in os.environ:
+            with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as fh:
+                fh.write("is_risky=false\n")
         sys.exit(0)

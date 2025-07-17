@@ -126,7 +126,7 @@ def main():
 
     if not all([repo_owner, repo_name, pr_number, token]):
         print("Missing required environment variables (REPO_OWNER, REPO_NAME, PR_NUMBER, GITHUB_TOKEN).")
-        exit(0)
+        exit(1)
 
     risky_df = load_risky_functions()
     if risky_df.empty or not is_very_risky(risky_df):
@@ -149,7 +149,7 @@ def main():
             print("No eligible reviewer found after excluding PR author.")
     except Exception as exc:
         print(f"Error while assigning reviewer: {exc}")
-        exit(0)
+        exit(1)
 
 
 if __name__ == "__main__":

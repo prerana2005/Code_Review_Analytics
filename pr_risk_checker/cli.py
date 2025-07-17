@@ -18,6 +18,7 @@ def main():
     result = run_main_logic(args.repo_owner, args.repo_name, args.pr_number, token=token)
 
     print(f"::notice:: is_risky={result['is_risky']}")
+    print(f"is_risky={result['is_risky']}")
 
     if "GITHUB_OUTPUT" in os.environ:
         with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as fh:

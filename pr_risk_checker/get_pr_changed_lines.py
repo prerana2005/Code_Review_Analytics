@@ -2,7 +2,6 @@
 Fetches PR changed lines from GitHub and returns grouped line blocks.
 """
 
-import sys
 import re
 import requests
 import pandas as pd
